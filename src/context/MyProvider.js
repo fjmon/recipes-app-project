@@ -5,18 +5,22 @@ import MyContext from './MyContext';
 function Provider({ children }) {
   const [loading, setLoading] = useState(null);
 
+  const context = {
+    loading,
+    setLoading,
+  };
+
   return (
-    <MyContext.Provider value={}>
-      {children}
-    </MyContext.Provider>
+    <main>
+      <MyContext.Provider value={ context }>
+        { children }
+      </MyContext.Provider>
+    </main>
   );
 }
 
 Provider.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]).isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default Provider;
