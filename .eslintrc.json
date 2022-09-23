@@ -22,8 +22,4 @@
   "rules": {
     "react/jsx-no-constructed-context-values": 0
   }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> origin
