@@ -1,27 +1,56 @@
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import Provider from './context/MyProvider';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Login from './pages/Login';
+import Meals from './pages/Meals';
+import Drinks from './pages/Drinks';
+import Profile from './pages/Profile';
+import DoneRecipes from './pages/DoneRecipes';
+import FavoriteRecipes from './pages/FavoriteRecipes';
 import Footer from './components/Footer';
 
 function App() {
   return (
     <Provider>
       <BrowserRouter>
-        <Route exact path="/" />
-        <Route exact path="/meals" component={ Footer } />
-        <Route exact path="/drinks" component={ Footer } />
-        <Route exact path="/meals/{id-da-receita}" />
-        <Route exact path="/drinks/{id-da-receita}" />
-        <Route exact path="/meals/{id-da-receita}/in-progress" />
-        <Route exact path="/drinks/{id-da-receita}/in-progress" />
-        <Route exact path="/profile" component={ Footer } />
-        <Route exact path="/done-recipes" />
-        <Route exact path="/favorite-recipes" />
-        <main>
-          <h1>teste</h1>
-        </main>
+        <Switch>
+          <Route exact path="/" component={ Login } />
+          <Route
+            exact
+            path="/meals"
+            render={ () => (
+              <div>
+                <Meals />
+                <Footer />
+              </div>) }
+          />
+          <Route
+            exact
+            path="/drinks"
+            render={ () => (
+              <div>
+                <Drinks />
+                <Footer />
+              </div>) }
+          />
+          <Route
+            exact
+            path="/profile"
+            render={ () => (
+              <div>
+                <Profile />
+                <Footer />
+              </div>) }
+          />
+          <Route exact path="/done-recipes" component={ DoneRecipes } />
+          <Route exact path="/favorite-recipes" component={ FavoriteRecipes } />
+          <Route exact path="/meals/{id-da-receita}" />
+          <Route exact path="/drinks/{id-da-receita}" />
+          <Route exact path="/meals/{id-da-receita}/in-progress" />
+          <Route exact path="/drinks/{id-da-receita}/in-progress" />
+        </Switch>
       </BrowserRouter>
     </Provider>
   );
