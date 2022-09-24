@@ -1,4 +1,4 @@
-// fazer as 2 funções de fetch e exporta-las
+// fazer as funções de fetch e exporta-las
 import { useEffect, useState } from 'react';
 
 function useFetchApi() {
