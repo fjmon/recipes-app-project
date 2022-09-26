@@ -34,6 +34,7 @@ function App() {
             render={ () => (
               <div>
                 <Drinks />
+                <Recipes />
                 <Footer />
               </div>) }
           />
