@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 function RecipeCard({ name, image, index }) {
   return (
@@ -13,5 +14,11 @@ function RecipeCard({ name, image, index }) {
     </div>
   );
 }
+
+RecipeCard.propTypes = {
+  name: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
+  index: PropTypes.string.isRequired,
+};
 
 export default RecipeCard;
