@@ -1,41 +1,51 @@
 function SearchBar() {
   return (
-    <main>
-      <label htmlFor="ingrediente">
-        Ingrediente
-        <input
-          type="radio"
-          data-testid="ingredient-search-radio"
-          name="ingrediente"
-          id=""
-        />
-      </label>
-      <label htmlFor="nome">
-        Nome
-        <input
-          type="radio"
-          data-testid="name-search-radio"
-          name="nome"
-          id=""
-        />
-      </label>
-      <label htmlFor="primeira-letra">
-        Primeira letra
-        <input
-          type="radio"
-          data-testid="first-letter-search-radio"
-          name="primeira-letra"
-          id=""
-        />
-      </label>
+    <div id="search-bar">
+      <div id="container-radios">
+        <label htmlFor="ingrediente">
+          <input
+            type="radio"
+            data-testid="ingredient-search-radio"
+            name="ingrediente"
+            id=""
+          />
+          Ingrediente
+        </label>
+        <label htmlFor="nome">
+          <input
+            type="radio"
+            data-testid="name-search-radio"
+            name="nome"
+            id=""
+          />
+          Nome
+        </label>
+        <label htmlFor="primeira-letra">
+          <input
+            type="radio"
+            data-testid="first-letter-search-radio"
+            name="primeira-letra"
+            id=""
+          />
+          Primeira letra
+        </label>
+      </div>
+      <input
+        type="text"
+        name="name"
+        placeholder="typing"
+        data-testid="search-input"
+        /* value={ inputSearchBar } */
+        /* onChange={ handleChangeSearchBar } */
+      />
       <button
         type="button"
         data-testid="exec-search-btn"
       >
-        Busca
+        Buscar
 
       </button>
-    </main>
+    </div>
   );
 }
 
