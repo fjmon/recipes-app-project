@@ -10,6 +10,7 @@ import Profile from './pages/Profile';
 import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import Footer from './components/Footer';
+import Recipes from './pages/Recipes';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             render={ () => (
               <div>
                 <Meals />
+                <Recipes />
                 <Footer />
               </div>) }
           />
