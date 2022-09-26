@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
 import MyContext from '../context/MyContext';
+import useFetchApi from '../Hooks/useFetchs';
 
 function SearchBar() {
-  const { inputSearchBar,
-    ingredient, name, firstLetter, handleChangeSearchBar } = useContext(MyContext);
+  const { ingredient, name, firstLetter } = useFetchApi();
+  const { inputSearchBar, handleChangeSearchBar } = useContext(MyContext);
 
   return (
     <main>
@@ -13,7 +14,7 @@ function SearchBar() {
           type="radio"
           data-testid="ingredient-search-radio"
           name="ingrediente"
-          id=""
+          id="ingrediente"
           value={ ingredient }
         />
       </label>
@@ -23,7 +24,7 @@ function SearchBar() {
           type="radio"
           data-testid="name-search-radio"
           name="nome"
-          id=""
+          id="nome"
           value={ name }
         />
       </label>
@@ -33,7 +34,7 @@ function SearchBar() {
           type="radio"
           data-testid="first-letter-search-radio"
           name="primeira-letra"
-          id=""
+          id="primeira-letra"
           value={ firstLetter }
         />
       </label>
@@ -41,6 +42,7 @@ function SearchBar() {
         type="text"
         name="name"
         placeholder="typing"
+        data-testid="search-input"
         value={ inputSearchBar }
         onChange={ handleChangeSearchBar }
       />

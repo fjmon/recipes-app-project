@@ -3,8 +3,8 @@ import { useContext, useEffect, useState } from 'react';
 import MyContext from '../context/MyContext';
 
 function useFetchApi() {
-  const context = useContext(MyContext);
-  console.log(context);
+  // const context = useContext(MyContext);
+  // console.log(context);
   const { inputSearchBar } = useContext(MyContext);
   const [ingredient, setIngredient] = useState([]);
   const [name, setName] = useState([]);
