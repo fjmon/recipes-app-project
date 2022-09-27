@@ -4,10 +4,18 @@ import MyContext from './MyContext';
 
 function Provider({ children }) {
   const [loading, setLoading] = useState(null);
+  const [inputSearchBar, setInputSearchBar] = useState('');
+
+  // const handleChangeSearchBar = ({ target: { value } }) => {
+  //   setInputSearchBar(value);
+  // };
 
   const context = {
     loading,
     setLoading,
+    inputSearchBar,
+    setInputSearchBar,
+    // handleChangeSearchBar,
   };
 
   return (

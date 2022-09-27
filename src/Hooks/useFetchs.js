@@ -1,55 +1,143 @@
 // fazer as funções de fetch e exporta-las
-import { useEffect, useState } from 'react';
+// import { useContext, useEffect, useState } from 'react';
+// import MyContext from '../context/MyContext';
 
-function useFetchApi() {
-  const [ingredient, setIngredient] = useState([]);
-  const [name, setName] = useState([]);
-  const [firstLetter, setFirstLetter] = useState([]);
-  const apiNotFound = 'API endpoint not found';
+const apiNotFound = 'API endpoint not found';
 
-  useEffect(() => {
-    const getIngredient = async (ingrediente) => {
-      try {
-        const url = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingrediente}`;
-        const response = await fetch(url);
-        const results = await response.json();
-        setIngredient(results);
-      } catch (error) {
-        console.log(apiNotFound);
-      }
-    };
-    getIngredient();
-  }, []);
+const fetchIngredient = async (value) => {
+  try {
+    const url = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${value}`;
+    const response = await fetch(url);
+    const results = await response.json();
+    console.log(results);
+    return results;
+  } catch (error) {
+    console.log(apiNotFound);
+  }
+};
 
-  useEffect(() => {
-    const getName = async (nome) => {
-      try {
-        const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${nome}`;
-        const response = await fetch(url);
-        const results = await response.json();
-        setName(results);
-      } catch (error) {
-        console.log(apiNotFound);
-      }
-    };
-    getName();
-  }, []);
+const fetchName = async (value) => {
+  try {
+    const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${value}`;
+    const response = await fetch(url);
+    const results = await response.json();
+    console.log(results);
+    return results;
+  } catch (error) {
+    console.log(apiNotFound);
+  }
+};
 
-  useEffect(() => {
-    const getFirstLetter = async (first) => {
-      try {
-        const url = `https://www.themealdb.com/api/json/v1/1/search.php?f=${first}`;
-        const response = await fetch(url);
-        const results = await response.json();
-        setIngredient(results);
-      } catch (error) {
-        console.log(apiNotFound);
-      }
-    };
-    getFirstLetter();
-  }, []);
+const fetchFirstLetter = async (value) => {
+  try {
+    const url = `https://www.themealdb.com/api/json/v1/1/search.php?f=${value}`;
+    const response = await fetch(url);
+    const results = await response.json();
+    console.log(results);
+    return results;
+  } catch (error) {
+    console.log(apiNotFound);
+  }
+};
 
-  return { ingredient, setIngredient, name, setName, firstLetter, setFirstLetter };
-}
+const fetchDrinkIngredient = async (value) => {
+  try {
+    const url = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${value}`;
+    const response = await fetch(url);
+    const results = await response.json();
+    console.log(results);
+    return results;
+  } catch (error) {
+    console.log(apiNotFound);
+  }
+};
 
-export default useFetchApi;
+const fetchDrinkName = async (value) => {
+  try {
+    const url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${value}`;
+    const response = await fetch(url);
+    const results = await response.json();
+    console.log(results);
+    return results;
+  } catch (error) {
+    console.log(apiNotFound);
+  }
+};
+
+const fetchDrinkFirstLetter = async (value) => {
+  try {
+    const url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${value}`;
+    const response = await fetch(url);
+    const results = await response.json();
+    console.log(results);
+    return results;
+  } catch (error) {
+    console.log(apiNotFound);
+  }
+};
+
+export { fetchIngredient, fetchName, fetchFirstLetter,
+  fetchDrinkIngredient, fetchDrinkName, fetchDrinkFirstLetter };
+
+// function useFetchApi() {
+//   const { inputSearchBar } = useContext(MyContext);
+//   console.log(inputSearchBar);
+//   const [ingredient, setIngredient] = useState([]);
+//   const [name, setName] = useState([]);
+//   const [firstLetter, setFirstLetter] = useState([]);
+//   const apiNotFound = 'API endpoint not found';
+
+//   useEffect(() => {
+//     const getIngredient = async () => {
+//       console.log(inputSearchBar);
+//       try {
+//         const url = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${inputSearchBar}`;
+//         const response = await fetch(url);
+//         const { meals } = await response.json();
+//         console.log(meals);
+//         setIngredient(meals);
+//         console.log(ingredient);
+//       } catch (error) {
+//         console.log(apiNotFound);
+//       }
+//     };
+//     getIngredient();
+//   }, []);
+
+//   useEffect(() => {
+//     const getName = async () => {
+//       try {
+//         const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${inputSearchBar}`;
+//         const response = await fetch(url);
+//         const results = await response.json();
+//         setName(results);
+//       } catch (error) {
+//         console.log(apiNotFound);
+//       }
+//     };
+//     getName();
+//   }, []);
+
+//   useEffect(() => {
+//     const getFirstLetter = async () => {
+//       try {
+//         const url = `https://www.themealdb.com/api/json/v1/1/search.php?f=${inputSearchBar}`;
+//         const response = await fetch(url);
+//         const results = await response.json();
+//         setIngredient(results);
+//       } catch (error) {
+//         console.log(apiNotFound);
+//       }
+//     };
+//     getFirstLetter();
+//   }, []);
+
+//   return { ingredient,
+//     setIngredient,
+//     name,
+//     setName,
+//     firstLetter,
+//     setFirstLetter };
+// }
+
+// export default useFetchApi;

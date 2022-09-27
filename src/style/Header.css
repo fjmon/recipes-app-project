@@ -5,12 +5,12 @@ header {
   width: 100vw;
 }
 
-#top-header {
+/* #top-header {
   display: flex;
-}
+} */
 
-#search-bar {
+/* #search-bar {
   align-items: center;
   display: flex;
   flex-direction: column;
-}
+} */
