@@ -40,7 +40,44 @@ const fetchFirstLetter = async (value) => {
   }
 };
 
-export { fetchIngredient, fetchName, fetchFirstLetter };
+const fetchDrinkIngredient = async (value) => {
+  try {
+    const url = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${value}`;
+    const response = await fetch(url);
+    const results = await response.json();
+    console.log(results);
+    return results;
+  } catch (error) {
+    console.log(apiNotFound);
+  }
+};
+
+const fetchDrinkName = async (value) => {
+  try {
+    const url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${value}`;
+    const response = await fetch(url);
+    const results = await response.json();
+    console.log(results);
+    return results;
+  } catch (error) {
+    console.log(apiNotFound);
+  }
+};
+
+const fetchDrinkFirstLetter = async (value) => {
+  try {
+    const url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${value}`;
+    const response = await fetch(url);
+    const results = await response.json();
+    console.log(results);
+    return results;
+  } catch (error) {
+    console.log(apiNotFound);
+  }
+};
+
+export { fetchIngredient, fetchName, fetchFirstLetter,
+  fetchDrinkIngredient, fetchDrinkName, fetchDrinkFirstLetter };
 
 // function useFetchApi() {
 //   const { inputSearchBar } = useContext(MyContext);

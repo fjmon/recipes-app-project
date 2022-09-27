@@ -1,10 +1,13 @@
 import React, { useContext, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import MyContext from '../context/MyContext';
 // import useFetchApi from '../Hooks/useFetchs';
-import { fetchIngredient, fetchName, fetchFirstLetter } from '../Hooks/useFetchs';
+import { fetchIngredient, fetchName, fetchFirstLetter,
+  fetchDrinkIngredient, fetchDrinkName, fetchDrinkFirstLetter } from '../Hooks/useFetchs';
 
 function SearchBar() {
   // const { ingredient, name, firstLetter } = useFetchApi();
+  const location = useLocation();
   const [filterInput, setFilterInput] = useState('');
   const { inputSearchBar, setInputSearchBar } = useContext(MyContext);
   const [verifyApi, setVerifyApi] = useState('');
@@ -20,16 +23,27 @@ function SearchBar() {
 
   const handleClick = () => {
     if (filterInput === 'ingrediente') {
-      setVerifyApi(fetchIngredient(inputSearchBar));
+      if (location.pathname === '/meals') {
+        setVerifyApi(fetchIngredient(inputSearchBar));
+      } else {
+        setVerifyApi(fetchDrinkIngredient(inputSearchBar));
+      }
     }
     if (filterInput === 'nome') {
-      setVerifyApi(fetchName(inputSearchBar));
+      if (location.pathname === '/meals') {
+        setVerifyApi(fetchName(inputSearchBar));
+      } else {
+        setVerifyApi(fetchDrinkName(inputSearchBar));
+      }
     }
     if (filterInput === 'primeira-letra') {
       if (inputSearchBar.length > 1) {
         global.alert('Your search must have only 1 (one) character');
-      } else {
+      }
+      if (location.pathname === '/meals') {
         setVerifyApi(fetchFirstLetter(inputSearchBar));
+      } else {
+        setVerifyApi(fetchDrinkFirstLetter(inputSearchBar));
       }
     }
   };

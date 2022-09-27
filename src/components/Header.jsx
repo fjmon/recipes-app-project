@@ -43,7 +43,7 @@ function Header({ title, search }) {
           : <img src={ logoDrink } alt="icon drink" id="icon" />
       }
       <h1 data-testid="page-title">{title}</h1>
-      { statusSearchBar === true && <SearchBar />}
+      { statusSearchBar === true && <SearchBar title={ title } />}
     </header>
   );
 }
