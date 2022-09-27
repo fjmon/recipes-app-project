@@ -49,7 +49,7 @@ function SearchBar() {
   };
 
   return (
-    <div id="search-bar">
+    <div id="search-bar" data-testid="search-bar">
       <div id="container-radios">
         <label htmlFor="ingrediente">
           <input
