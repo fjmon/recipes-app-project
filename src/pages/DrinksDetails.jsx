@@ -12,9 +12,12 @@ export default function DrinksDetails() {
     }
   };
 
-  // const api = fetchApiMeals();
-  // {api.meals}
+  const api = fetchApiMeals();
+
   return (
-    <div>DrinksDetails</div>
+    <div>
+      DrinksDetails
+      {api.meals}
+    </div>
   );
 }
