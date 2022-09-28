@@ -1,17 +1,17 @@
 import React, { useContext, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import MyContext from '../context/MyContext';
-// import useFetchApi from '../Hooks/useFetchs';
-import { fetchIngredient, fetchName, fetchFirstLetter,
-  fetchDrinkIngredient, fetchDrinkName, fetchDrinkFirstLetter } from '../Hooks/useFetchs';
+import { fetchMeals, fetchDrinks } from '../Services';
+// import { fetchIngredient, fetchName, fetchFirstLetter,
+//   fetchDrinkIngredient, fetchDrinkName, fetchDrinkFirstLetter } from '../Services';
 
 function SearchBar() {
-  // const { ingredient, name, firstLetter } = useFetchApi();
   const location = useLocation();
   const [filterInput, setFilterInput] = useState('');
-  const { inputSearchBar, setInputSearchBar } = useContext(MyContext);
-  const [verifyApi, setVerifyApi] = useState('');
-  console.log(verifyApi);
+  const { inputSearchBar, setInputSearchBar,
+    setDrinksRecipes, setMealsRecipes } = useContext(MyContext);
+
+  const history = useHistory();
 
   const handleChangeSearchBar = ({ target: { value } }) => {
     setInputSearchBar(value);
@@ -21,30 +21,61 @@ function SearchBar() {
     setFilterInput(value);
   };
 
-  const handleClick = () => {
-    if (filterInput === 'ingrediente') {
-      if (location.pathname === '/meals') {
-        setVerifyApi(fetchIngredient(inputSearchBar));
-      } else {
-        setVerifyApi(fetchDrinkIngredient(inputSearchBar));
-      }
+  // const details = () => {
+  //   // if (filterInput === 'ingrediente') {
+  //   if (location.pathname === '/meals') {
+  //     setMealsRecipes(fetchIngredient(inputSearchBar));
+  //   } else {
+  //     setDrinksRecipes(fetchDrinkIngredient(inputSearchBar));
+  //   }
+  //   details();
+  // }
+  // if (filterInput === 'nome') {
+  //   if (location.pathname === '/meals') {
+  //     setMealsRecipes(fetchName(inputSearchBar));
+  //   } else {
+  //     setDrinksRecipes(fetchDrinkName(inputSearchBar));
+  //   }
+  //   details();
+  // }
+  // if (filterInput === 'primeira-letra') {
+  //   if (inputSearchBar.length > 1) {
+  //     global.alert('Your search must have only 1 (one) character');
+  //   }
+  //   if (location.pathname === '/meals') {
+  //     setMealsRecipes(fetchFirstLetter(inputSearchBar));
+  //   } else {
+  //     setDrinksRecipes(fetchDrinkFirstLetter(inputSearchBar));
+  //   }
+  //   details();
+  // }
+  // };
+
+  const handleClick = async () => {
+    if (filterInput === 'primeira-letra' && inputSearchBar.length > 1) {
+      global.alert('Your search must have only 1 (one) character');
     }
-    if (filterInput === 'nome') {
-      if (location.pathname === '/meals') {
-        setVerifyApi(fetchName(inputSearchBar));
-      } else {
-        setVerifyApi(fetchDrinkName(inputSearchBar));
+
+    if (location.pathname === '/meals') {
+      const meals = await fetchMeals(inputSearchBar, filterInput);
+      if (meals.meals === null) {
+        return global.alert('Sorry, we haven\'t found any recipes for these filters.');
       }
+      if (meals.meals.length === 1) {
+        return history.push(`/meals/${meals.meals[0].idMeal}`);
+      }
+      return setMealsRecipes(meals.meals);
     }
-    if (filterInput === 'primeira-letra') {
-      if (inputSearchBar.length > 1) {
-        global.alert('Your search must have only 1 (one) character');
+
+    if (location.pathname === '/drinks') {
+      const drinks = await fetchDrinks(inputSearchBar, filterInput);
+      if (drinks.drinks === null) {
+        return global.alert('Sorry, we haven\'t found any recipes for these filters.');
       }
-      if (location.pathname === '/meals') {
-        setVerifyApi(fetchFirstLetter(inputSearchBar));
-      } else {
-        setVerifyApi(fetchDrinkFirstLetter(inputSearchBar));
+      if (drinks.drinks.length === 1) {
+        return history.push(`/drinks/${drinks.drinks[0].idDrink}`);
       }
+      return setDrinksRecipes(drinks.drinks);
     }
   };
 
@@ -55,7 +86,7 @@ function SearchBar() {
           <input
             type="radio"
             data-testid="ingredient-search-radio"
-            name="ingrediente"
+            name="radioBtn"
             id="ingrediente"
             value="ingrediente"
             onChange={ handleChangeInputs }
@@ -66,7 +97,7 @@ function SearchBar() {
           <input
             type="radio"
             data-testid="name-search-radio"
-            name="nome"
+            name="radioBtn"
             id="nome"
             value="nome"
             onChange={ handleChangeInputs }
@@ -77,7 +108,7 @@ function SearchBar() {
           <input
             type="radio"
             data-testid="first-letter-search-radio"
-            name="primeira-letra"
+            name="radioBtn"
             id="primeira-letra"
             value="primeira-letra"
             onChange={ handleChangeInputs }
