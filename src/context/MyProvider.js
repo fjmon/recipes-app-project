@@ -4,10 +4,19 @@ import MyContext from './MyContext';
 
 function Provider({ children }) {
   const [loading, setLoading] = useState(null);
+  const [inputSearchBar, setInputSearchBar] = useState('');
+  const [mealsRecipes, setMealsRecipes] = useState('');
+  const [drinksRecipes, setDrinksRecipes] = useState('');
 
   const context = {
     loading,
     setLoading,
+    inputSearchBar,
+    setInputSearchBar,
+    mealsRecipes,
+    setMealsRecipes,
+    drinksRecipes,
+    setDrinksRecipes,
   };
 
   return (
