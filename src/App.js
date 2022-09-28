@@ -23,10 +23,10 @@ function App() {
           <Route
             exact
             path="/meals"
-            render={ () => (
+            render={ (props) => (
               <div>
                 <Meals />
-                <Recipes />
+                <Recipes { ...props } key={ window.location.pathname } />
                 <Footer />
               </div>) }
           />
@@ -34,9 +34,10 @@ function App() {
           <Route
             exact
             path="/drinks"
-            render={ () => (
+            render={ (props) => (
               <div>
                 <Drinks />
+                <Recipes { ...props } key={ window.location.pathname } />
                 <Footer />
               </div>) }
           />
