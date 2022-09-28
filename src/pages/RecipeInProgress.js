@@ -8,14 +8,16 @@ function RecipeInProgress() {
   const [finishButtonState, setFinishButtonState] = useState(true);
   const [checkedIngredients, setCheckedIngredients] = useState(0);
   useEffect(() => {
+    const id = parseInt(window.location.pathname.replace(/[^0-9]/g, ''), 10);
+    console.log(id);
     const fetchMealDetails = async () => {
-      const response = await fetch('https://www.themealdb.com/api/json/v1/1/lookup.php?i=52771');
+      const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
       const results = await response.json();
       setMealDetails(results);
       setMealsRoute(true);
     };
     const fetchDrinkDetails = async () => {
-      const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=178319');
+      const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
       const results = await response.json();
       setDrinkDetails(results);
       setDrinksRoute(true);
