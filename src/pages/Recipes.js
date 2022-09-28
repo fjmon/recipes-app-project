@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import RecipeCard from '../components/RecipeCard';
+import MyContext from '../context/MyContext';
 
 function Recipes() {
   const [mealsRoute, setMealsRoute] = useState(false);
@@ -12,6 +13,7 @@ function Recipes() {
   const [drinksToShow, setDrinksToShow] = useState({});
   const [mealsFilterBoo, setMealsFilterBool] = useState(false);
   const [drinksFilterBoo, setDrinksFilterBool] = useState(false);
+  const { inputSearchBar } = useContext(MyContext);
   useEffect(() => {
     const fetchMeals = async () => {
       const response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
@@ -110,7 +112,7 @@ function Recipes() {
             )
             : null
         ))}
-      { mealsRoute
+      { mealsRoute && inputSearchBar.length === 0
         && mealsToShow.meals.map((elem, index) => (
           index < maxRecipes
             ? (
