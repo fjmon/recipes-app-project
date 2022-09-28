@@ -14,7 +14,6 @@ function Footer() {
       <Link data-testid="meals-bottom-btn" to="/meals" src={ mealIcon }>
         <img src={ mealIcon } alt="Foods" width="50" />
       </Link>
-
     </footer>
   );
 }
