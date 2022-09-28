@@ -10,6 +10,7 @@ function RecipeInProgress() {
       const response = await fetch('https://www.themealdb.com/api/json/v1/1/lookup.php?i=52771');
       const results = await response.json();
       setMealDetails(results);
+      // mealDetails.meals.filter((elem)=> )
       // setMealsToShow(results);
       // const response2 = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
       // const results2 = await response2.json();
@@ -50,6 +51,20 @@ function RecipeInProgress() {
           <button data-testid="favorite-btn" type="button">Favorite</button>
           <p data-testid="recipe-category">{ elem.strCategory }</p>
           <p data-testid="instructions">{ elem.strInstructions }</p>
+          {Object.keys(mealDetails.meals[0])
+            .filter((e) => e.includes('strIngredient'))
+            .map((e2, i) => mealDetails.meals[0][e2]
+          && (
+            <div key={ i }>
+              <label
+                data-testid={ `${i}-ingredient-step` }
+                htmlFor="index"
+              >
+                {mealDetails.meals[0][e2]}
+                <input type="checkbox" id="index" />
+              </label>
+            </div>
+          ))}
         </div>
       ))}
       {drinksRoute
@@ -66,6 +81,20 @@ function RecipeInProgress() {
           <button data-testid="favorite-btn" type="button">Favorite</button>
           <p data-testid="recipe-category">{ elem.strCategory }</p>
           <p data-testid="instructions">{ elem.strInstructions }</p>
+          {Object.keys(drinkDetails.drinks[0])
+            .filter((e) => e.includes('strIngredient'))
+            .map((e2, i) => drinkDetails.drinks[0][e2]
+          && (
+            <div key={ i }>
+              <label
+                data-testid={ `${i}-ingredient-step` }
+                htmlFor="index"
+              >
+                {drinkDetails.drinks[0][e2]}
+                <input type="checkbox" id="index" />
+              </label>
+            </div>
+          ))}
         </div>
       ))}
       <button data-testid="finish-recipe-btn" type="button">Finish Recipe</button>
