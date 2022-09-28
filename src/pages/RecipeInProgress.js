@@ -5,26 +5,19 @@ function RecipeInProgress() {
   const [drinksRoute, setDrinksRoute] = useState(false);
   const [mealDetails, setMealDetails] = useState({});
   const [drinkDetails, setDrinkDetails] = useState({});
+  const [finishButtonState, setFinishButtonState] = useState(true);
+  const [checkedIngredients, setCheckedIngredients] = useState(0);
   useEffect(() => {
     const fetchMealDetails = async () => {
       const response = await fetch('https://www.themealdb.com/api/json/v1/1/lookup.php?i=52771');
       const results = await response.json();
       setMealDetails(results);
-      // mealDetails.meals.filter((elem)=> )
-      // setMealsToShow(results);
-      // const response2 = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
-      // const results2 = await response2.json();
-      // setMealsCategories(results2);
       setMealsRoute(true);
     };
     const fetchDrinkDetails = async () => {
       const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=178319');
       const results = await response.json();
       setDrinkDetails(results);
-      //   setDrinksToShow(results);
-      //   const response2 = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
-      //   const results2 = await response2.json();
-      //   setDrinksCategories(results2);
       setDrinksRoute(true);
     };
     if (window.location.pathname.includes('/meals')) {
@@ -34,6 +27,32 @@ function RecipeInProgress() {
       fetchDrinkDetails();
     }
   }, []);
+  const checkIngredients = (event) => {
+    if (event.target.checked === true) {
+      setCheckedIngredients(checkedIngredients + 1);
+    }
+    if (event.target.checked === false) {
+      setCheckedIngredients(checkedIngredients - 1);
+    }
+    if (checkedIngredients === document.getElementsByTagName('input').length - 1) {
+      setFinishButtonState(false);
+    } else {
+      setFinishButtonState(true);
+    }
+    // console.log(event.target.checked);
+    // const savedState = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
+    // console.log(event.target.id);
+    // const newState = {
+    //   drinks: {
+    //     ...savedState.drinks,
+    //   },
+    //   meals: {
+    //     ...savedState.meals,
+    //     [event.target.name]: [...savedState.meals[event.target.name], event.target.id],
+    //   },
+    // };
+    // localStorage.setItem('inProgressRecipes', JSON.stringify(newState));
+  };
   return (
     <div>
       Recipe in Progress
@@ -58,10 +77,15 @@ function RecipeInProgress() {
             <div key={ i }>
               <label
                 data-testid={ `${i}-ingredient-step` }
-                htmlFor="index"
+                htmlFor={ mealDetails.meals[0][e2] }
               >
                 {mealDetails.meals[0][e2]}
-                <input type="checkbox" id="index" />
+                <input
+                  type="checkbox"
+                  id={ mealDetails.meals[0][e2] }
+                  name={ elem.idMeal }
+                  onClick={ checkIngredients }
+                />
               </label>
             </div>
           ))}
@@ -88,16 +112,28 @@ function RecipeInProgress() {
             <div key={ i }>
               <label
                 data-testid={ `${i}-ingredient-step` }
-                htmlFor="index"
+                htmlFor={ drinkDetails.drinks[0][e2] }
               >
                 {drinkDetails.drinks[0][e2]}
-                <input type="checkbox" id="index" />
+                <input
+                  type="checkbox"
+                  id={ drinkDetails.drinks[0][e2] }
+                  name={ elem.idDrink }
+                  onClick={ checkIngredients }
+                />
               </label>
             </div>
           ))}
         </div>
       ))}
-      <button data-testid="finish-recipe-btn" type="button">Finish Recipe</button>
+      <button
+        data-testid="finish-recipe-btn"
+        type="button"
+        disabled={ finishButtonState }
+      >
+        Finish Recipe
+
+      </button>
     </div>
   );
 }
