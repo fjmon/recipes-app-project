@@ -11,7 +11,8 @@ import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import Footer from './components/Footer';
 import Recipes from './pages/Recipes';
-import RecipeDetails from './pages/RecipeDetails';
+import RecipesDetails from './pages/RecipesDetails';
+import DrinksDetails from './pages/DrinksDetails';
 
 function App() {
   return (
@@ -22,22 +23,25 @@ function App() {
           <Route
             exact
             path="/meals"
-            render={ () => (
+            render={ (props) => (
               <div>
                 <Meals />
-                <Recipes />
+                <Recipes { ...props } key={ window.location.pathname } />
                 <Footer />
               </div>) }
           />
+          <Route exact path="/meals/:id" component={ RecipesDetails } />
           <Route
             exact
             path="/drinks"
-            render={ () => (
+            render={ (props) => (
               <div>
                 <Drinks />
+                <Recipes { ...props } key={ window.location.pathname } />
                 <Footer />
               </div>) }
           />
+          <Route exact path="/drinks/:id" component={ DrinksDetails } />
           <Route
             exact
             path="/profile"
