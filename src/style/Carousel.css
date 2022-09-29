@@ -1,0 +1,12 @@
+.scroll {
+  width: 100vw;
+  overflow: auto;
+  display: flex;
+  gap: 10px;
+}
+
+.scroll-child {
+  width: 50%;
+  height: 100%;
+  text-align: center;
+}

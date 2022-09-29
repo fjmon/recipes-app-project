@@ -1,22 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
+import MyContext from '../context/MyContext';
 
 function DrinkDetails() {
   const { id } = useParams();
   const [drinkDetails, setDrinkDetails] = useState({});
+  const { recommendationMeals, setRecommendationMeals } = useContext(MyContext);
 
-  const fetchApiMeals = async () => {
-    const url = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
-    try {
-      const response = await fetch(url);
-      const data = await response.json();
-      console.log(data);
-    } catch (error) {
-      console.log('API endpoint not found');
-    }
-  };
+  useEffect(() => {
+    const fetchApiMeals = async () => {
+      const url = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+        console.log(data.meals);
+        setRecommendationMeals(data.meals);
+      } catch (error) {
+        console.log('API endpoint not found');
+      }
+    };
+    fetchApiMeals();
+  }, []); // eslint-disable-line
 
-  const api = fetchApiMeals();
+  const CARDS_MAXIMUM = 6;
 
   useEffect(() => {
     const fetchDrink = async () => {
@@ -61,7 +67,30 @@ function DrinkDetails() {
         ))}
       </ol>
       <p data-testid="instructions">{drinkDetails.strInstructions}</p>
-      {api.meals}
+      <div className="scroll">
+        {recommendationMeals.length > 0 && recommendationMeals.map((meal, i) => (
+          i < CARDS_MAXIMUM && (
+            <div
+              className="scroll-child"
+              key={ meal.idMeal }
+              data-testid={ `${i}-recommendation-card` }
+            >
+              <p
+                className="scroll-p"
+                data-testid={ `${i}-recommendation-title` }
+              >
+                { meal.strMeal }
+
+              </p>
+              <img
+                className="scroll-img"
+                src={ meal.strMealThumb }
+                alt={ meal.strMeal }
+              />
+            </div>
+          )
+        ))}
+      </div>
     </>
   );
 }
