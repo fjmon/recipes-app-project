@@ -61,6 +61,13 @@ function RecipeDetails() {
     btnDisappear = doneRecipes.some((recipe) => recipe.id === id);
   }
 
+  let btnContinue = '';
+  const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  if (inProgressRecipes !== null) {
+    const { meals } = inProgressRecipes;
+    btnContinue = Object.keys(meals).some((recipe) => recipe === id);
+  }
+
   return (
     <>
       <img
@@ -119,7 +126,7 @@ function RecipeDetails() {
           type="button"
           data-testid="start-recipe-btn"
         >
-          Start Recipe
+          {btnContinue ? 'Continue Recipe' : 'Start Recipe'}
 
         </button>
       )}
