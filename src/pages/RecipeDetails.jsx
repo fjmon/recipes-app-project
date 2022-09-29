@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import MyContext from '../context/MyContext';
 import '../style/Carousel.css';
 
@@ -7,6 +7,7 @@ function RecipeDetails() {
   const { id } = useParams();
   const [recipeDetails, setRecipeDetails] = useState({});
   const { recommendationDrinks, setRecommendationDrinks } = useContext(MyContext);
+  const history = useHistory();
 
   useEffect(() => {
     const fetchApiDrinks = async () => {
@@ -14,7 +15,6 @@ function RecipeDetails() {
       try {
         const response = await fetch(url);
         const data = await response.json();
-        console.log(data.drinks);
         setRecommendationDrinks(data.drinks);
       } catch (error) {
         console.log('API endpoint not found');
@@ -125,6 +125,7 @@ function RecipeDetails() {
           className="scroll-btn"
           type="button"
           data-testid="start-recipe-btn"
+          onClick={ () => history.push(`/meals/${id}/in-progress`) }
         >
           {btnContinue ? 'Continue Recipe' : 'Start Recipe'}
 
