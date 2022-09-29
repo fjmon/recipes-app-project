@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
+import copy from 'clipboard-copy';
 import MyContext from '../context/MyContext';
 import '../style/Carousel.css';
 
@@ -8,6 +9,7 @@ function DrinkDetails() {
   const [drinkDetails, setDrinkDetails] = useState({});
   const { recommendationMeals, setRecommendationMeals } = useContext(MyContext);
   const history = useHistory();
+  const [shareCopyBtn, setShareCopyBtn] = useState(false);
 
   useEffect(() => {
     const fetchApiMeals = async () => {
@@ -59,6 +61,12 @@ function DrinkDetails() {
     const { drinks } = inProgressRecipes;
     btnContinue = Object.keys(drinks).some((recipe) => recipe === id);
   }
+
+  const { location } = useHistory();
+  const handleClickShare = () => {
+    setShareCopyBtn(true);
+    copy(`http://localhost:3000${location.pathname}`);
+  };
 
   return (
     <>
@@ -118,10 +126,23 @@ function DrinkDetails() {
       <button
         type="button"
         data-testid="share-btn"
+        onClick={ handleClickShare }
       >
         Compartilhar
 
       </button>
+      { shareCopyBtn && (
+        <p>
+          Link copied!
+          <button
+            type="button"
+            onClick={ () => setShareCopyBtn(false) }
+          >
+            Compartilhar
+
+          </button>
+        </p>
+      ) }
       <button
         type="button"
         data-testid="favorite-btn"
