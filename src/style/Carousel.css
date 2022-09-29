@@ -1,12 +1,18 @@
 .scroll {
-  width: 100vw;
-  overflow: auto;
   display: flex;
   gap: 10px;
+  overflow: auto;
+  width: 100vw;
 }
 
 .scroll-child {
-  width: 50%;
   height: 100%;
+  width: 50%;
   text-align: center;
+}
+
+.scroll-btn {
+  bottom: 0%;
+  position: fixed;
+  right: 45%;
 }

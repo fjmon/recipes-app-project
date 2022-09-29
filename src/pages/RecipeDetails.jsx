@@ -107,6 +107,14 @@ function RecipeDetails() {
           )
         ))}
       </div>
+      <button
+        className="scroll-btn"
+        type="button"
+        data-testid="start-recipe-btn"
+      >
+        Start Recipe
+
+      </button>
     </>
   );
 }
