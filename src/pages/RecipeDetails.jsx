@@ -1,22 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
+import MyContext from '../context/MyContext';
+import '../style/Carousel.css';
 
 function RecipeDetails() {
   const { id } = useParams();
   const [recipeDetails, setRecipeDetails] = useState({});
+  const { recommendationDrinks, setRecommendationDrinks } = useContext(MyContext);
 
-  const fetchApiDrinks = async () => {
-    const url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
-    try {
-      const response = await fetch(url);
-      const data = await response.json();
-      console.log(data);
-    } catch (error) {
-      console.log('API endpoint not found');
-    }
-  };
+  useEffect(() => {
+    const fetchApiDrinks = async () => {
+      const url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+        console.log(data.drinks);
+        setRecommendationDrinks(data.drinks);
+      } catch (error) {
+        console.log('API endpoint not found');
+      }
+    };
+    fetchApiDrinks();
+  }, []); // eslint-disable-line
 
-  const api = fetchApiDrinks();
+  const CARDS_MAXIMUM = 6;
 
   const embedURL = (url) => {
     if (url) {
@@ -48,6 +55,12 @@ function RecipeDetails() {
     return ingredients;
   };
 
+  let btnDisappear = '';
+  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+  if (doneRecipes !== null) {
+    btnDisappear = doneRecipes.some((recipe) => recipe.id === id);
+  }
+
   return (
     <>
       <img
@@ -76,7 +89,40 @@ function RecipeDetails() {
           allowFullScreen
           data-testid="video"
         />}
-      {api.drinks}
+      <div className="scroll">
+        {recommendationDrinks.length > 0 && recommendationDrinks.map((drink, i) => (
+          i < CARDS_MAXIMUM && (
+            <div
+              className="scroll-child"
+              key={ drink.idDrink }
+              data-testid={ `${i}-recommendation-card` }
+            >
+              <p
+                className="scroll-p"
+                data-testid={ `${i}-recommendation-title` }
+              >
+                { drink.strDrink }
+
+              </p>
+              <img
+                className="scroll-img"
+                src={ drink.strDrinkThumb }
+                alt={ drink.strDrink }
+              />
+            </div>
+          )
+        ))}
+      </div>
+      {btnDisappear === '' && (
+        <button
+          className="scroll-btn"
+          type="button"
+          data-testid="start-recipe-btn"
+        >
+          Start Recipe
+
+        </button>
+      )}
     </>
   );
 }

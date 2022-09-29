@@ -2,8 +2,6 @@ import React, { useContext, useState } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import MyContext from '../context/MyContext';
 import { fetchMeals, fetchDrinks } from '../Services';
-// import { fetchIngredient, fetchName, fetchFirstLetter,
-//   fetchDrinkIngredient, fetchDrinkName, fetchDrinkFirstLetter } from '../Services';
 
 function SearchBar() {
   const location = useLocation();
@@ -20,36 +18,6 @@ function SearchBar() {
   const handleChangeInputs = ({ target: { value } }) => {
     setFilterInput(value);
   };
-
-  // const details = () => {
-  //   // if (filterInput === 'ingrediente') {
-  //   if (location.pathname === '/meals') {
-  //     setMealsRecipes(fetchIngredient(inputSearchBar));
-  //   } else {
-  //     setDrinksRecipes(fetchDrinkIngredient(inputSearchBar));
-  //   }
-  //   details();
-  // }
-  // if (filterInput === 'nome') {
-  //   if (location.pathname === '/meals') {
-  //     setMealsRecipes(fetchName(inputSearchBar));
-  //   } else {
-  //     setDrinksRecipes(fetchDrinkName(inputSearchBar));
-  //   }
-  //   details();
-  // }
-  // if (filterInput === 'primeira-letra') {
-  //   if (inputSearchBar.length > 1) {
-  //     global.alert('Your search must have only 1 (one) character');
-  //   }
-  //   if (location.pathname === '/meals') {
-  //     setMealsRecipes(fetchFirstLetter(inputSearchBar));
-  //   } else {
-  //     setDrinksRecipes(fetchDrinkFirstLetter(inputSearchBar));
-  //   }
-  //   details();
-  // }
-  // };
 
   const handleClick = async () => {
     if (filterInput === 'primeira-letra' && inputSearchBar.length > 1) {
@@ -119,7 +87,6 @@ function SearchBar() {
       <input
         type="text"
         data-testid="search-input"
-        // value={ inputSearchBar }
         onChange={ handleChangeSearchBar }
       />
       <button
