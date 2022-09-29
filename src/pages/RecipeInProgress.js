@@ -41,19 +41,60 @@ function RecipeInProgress() {
     } else {
       setFinishButtonState(true);
     }
-    // console.log(event.target.checked);
-    // const savedState = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
-    // console.log(event.target.id);
-    // const newState = {
-    //   drinks: {
-    //     ...savedState.drinks,
-    //   },
-    //   meals: {
-    //     ...savedState.meals,
-    //     [event.target.name]: [...savedState.meals[event.target.name], event.target.id],
-    //   },
-    // };
-    // localStorage.setItem('inProgressRecipes', JSON.stringify(newState));
+
+    if (window.location.pathname.includes('/meals')) {
+      const savedState = JSON.parse(localStorage.getItem('inProgressRecipes')) || {
+        drinks: {
+        },
+        meals: {
+          [event.target.name]: [],
+        },
+      };
+      const newState = {
+        drinks: {
+          ...savedState.drinks,
+        },
+        meals: {
+          ...savedState.meals,
+          [event.target.name]: [...savedState.meals[event.target.name], event.target.id],
+        },
+      };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(newState));
+    }
+    if (window.location.pathname.includes('/drinks')) {
+      const savedState = JSON.parse(localStorage.getItem('inProgressRecipes')) || {
+        drinks: {
+          [event.target.name]: [],
+        },
+        meals: {
+        },
+      };
+      const newState = {
+        drinks: {
+          ...savedState.drinks,
+          [event.target.name]: [...savedState.drinks[event.target.name], event.target.id],
+        },
+        meals: {
+          ...savedState.meals,
+        },
+      };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(newState));
+    }
+  };
+  const restoreChecked = (ingredient, id) => {
+    const savedState = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
+    if (window.location.pathname.includes('/meals')) {
+      if (Object.keys(savedState).length !== 0) {
+        return !!(savedState.meals[id].includes(ingredient));
+      }
+      return false;
+    }
+    if (window.location.pathname.includes('/drinks')) {
+      if (Object.keys(savedState).length !== 0) {
+        return !!(savedState.drinks[id].includes(ingredient));
+      }
+      return false;
+    }
   };
   return (
     <div>
@@ -87,6 +128,7 @@ function RecipeInProgress() {
                   id={ mealDetails.meals[0][e2] }
                   name={ elem.idMeal }
                   onClick={ checkIngredients }
+                  checked={ restoreChecked(mealDetails.meals[0][e2], elem.idMeal) }
                 />
               </label>
             </div>
@@ -122,6 +164,7 @@ function RecipeInProgress() {
                   id={ drinkDetails.drinks[0][e2] }
                   name={ elem.idDrink }
                   onClick={ checkIngredients }
+                  checked={ restoreChecked(drinkDetails.drinks[0][e2], elem.idDrink) }
                 />
               </label>
             </div>
