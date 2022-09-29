@@ -55,6 +55,12 @@ function RecipeDetails() {
     return ingredients;
   };
 
+  let btnDisappear = '';
+  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+  if (doneRecipes !== null) {
+    btnDisappear = doneRecipes.some((recipe) => recipe.id === id);
+  }
+
   return (
     <>
       <img
@@ -107,14 +113,16 @@ function RecipeDetails() {
           )
         ))}
       </div>
-      <button
-        className="scroll-btn"
-        type="button"
-        data-testid="start-recipe-btn"
-      >
-        Start Recipe
+      {btnDisappear === '' && (
+        <button
+          className="scroll-btn"
+          type="button"
+          data-testid="start-recipe-btn"
+        >
+          Start Recipe
 
-      </button>
+        </button>
+      )}
     </>
   );
 }
