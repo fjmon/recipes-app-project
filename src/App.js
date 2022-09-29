@@ -53,8 +53,10 @@ function App() {
           />
           <Route exact path="/done-recipes" component={ DoneRecipes } />
           <Route exact path="/favorite-recipes" component={ FavoriteRecipes } />
-          <Route exact path="/meals/:id/in-progress" />
-          <Route exact path="/drinks/:id/in-progress" />
+          <Route exact path="/meals/{id-da-receita}" />
+          <Route exact path="/drinks/{id-da-receita}" />
+          <Route exact path="/meals/{id-da-receita}/in-progress" />
+          <Route exact path="/drinks/{id-da-receita}/in-progress" />
         </Switch>
       </BrowserRouter>
     </Provider>

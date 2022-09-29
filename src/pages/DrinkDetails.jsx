@@ -5,6 +5,19 @@ function DrinkDetails() {
   const { id } = useParams();
   const [drinkDetails, setDrinkDetails] = useState({});
 
+  const fetchApiMeals = async () => {
+    const url = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.log('API endpoint not found');
+    }
+  };
+
+  const api = fetchApiMeals();
+
   useEffect(() => {
     const fetchDrink = async () => {
       const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
@@ -48,6 +61,7 @@ function DrinkDetails() {
         ))}
       </ol>
       <p data-testid="instructions">{drinkDetails.strInstructions}</p>
+      {api.meals}
     </>
   );
 }

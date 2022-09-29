@@ -5,6 +5,19 @@ function RecipeDetails() {
   const { id } = useParams();
   const [recipeDetails, setRecipeDetails] = useState({});
 
+  const fetchApiDrinks = async () => {
+    const url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.log('API endpoint not found');
+    }
+  };
+
+  const api = fetchApiDrinks();
+
   const embedURL = (url) => {
     if (url) {
       const URL = url;
@@ -63,8 +76,8 @@ function RecipeDetails() {
           allowFullScreen
           data-testid="video"
         />}
+      {api.drinks}
     </>
   );
 }
-
 export default RecipeDetails;
