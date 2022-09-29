@@ -11,8 +11,8 @@ import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import Footer from './components/Footer';
 import Recipes from './pages/Recipes';
-import RecipesDetails from './pages/RecipesDetails';
-import DrinksDetails from './pages/DrinksDetails';
+import RecipeDetails from './pages/RecipeDetails';
+import DrinkDetails from './pages/DrinkDetails';
 import RecipeInProgress from './pages/RecipeInProgress';
 
 function App() {
@@ -31,7 +31,7 @@ function App() {
                 <Footer />
               </div>) }
           />
-          <Route exact path="/meals/:id" component={ RecipesDetails } />
+          <Route exact path="/meals/:id" component={ RecipeDetails } />
           <Route
             exact
             path="/drinks"
@@ -42,7 +42,7 @@ function App() {
                 <Footer />
               </div>) }
           />
-          <Route exact path="/drinks/:id" component={ DrinksDetails } />
+          <Route exact path="/drinks/:id" component={ DrinkDetails } />
           <Route
             exact
             path="/profile"
