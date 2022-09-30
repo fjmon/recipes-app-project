@@ -75,7 +75,7 @@ function DrinkDetails() {
   const recipe = {
     id: drinkDetails.idDrink,
     type: 'drink',
-    nationality: drinkDetails.strArea,
+    nationality: '',
     category: drinkDetails.strCategory,
     alcoholicOrNot: drinkDetails.strAlcoholic,
     name: drinkDetails.strDrink,
