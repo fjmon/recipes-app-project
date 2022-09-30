@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import share from '../images/shareIcon.svg';
 import Header from '../components/Header';
 
 function DoneRecipes() {
@@ -25,30 +26,36 @@ function DoneRecipes() {
         <div key={ index }>
           <img
             data-testid={ `${index}-horizontal-image` }
-            src={ el.strMealThumb ? el.strMealThumb : el.strDrinkThumb }
-            alt={ el.strMeal ? el.strMeal : el.strDrink }
+            src={ el.image }
+            alt={ el.name }
           />
 
           <h6
-            data-testid={ `${index}-horizontal-top-text` }
-          >
-            {el.strMeal ? el.strMeal : el.strDrink }
-          </h6>
-
-          <p
             data-testid={ `${index}-horizontal-name` }
           >
-            {el.strCategory}
-          </p>
+            {el.name }
+          </h6>
+          {el.type === 'meal' ? (
+            <div>
+              <p
+                data-testid={ `${index}-horizontal-top-text` }
+              >
+                {`${el.nationality} - ${el.category}`}
+              </p>
 
-          <p data-testid={ `${index}-horizontal-done-date` }>Data</p>
+            </div>
+          ) : (
+            <div>
+              <p
+                data-testid={ `${index}-horizontal-top-text` }
+              >
+                {el.alcoholicOrNot}
+              </p>
 
-          <button
-            type="button"
-            data-testid={ `${index}-horizontal-share-btn` }
-          >
-            Share
-          </button>
+            </div>
+          )}
+
+          <p data-testid={ `${index}-horizontal-done-date` }>{el.doneDate}</p>
 
           {el.tags.length > 0
           && (
@@ -60,6 +67,12 @@ function DoneRecipes() {
                 {el.tags[1]}
               </p>
             </div>)}
+          <img
+            src={ share }
+            alt={ el.name }
+            data-testid={ `${index}-horizontal-share-btn` }
+            role="presentation"
+          />
         </div>
       ))}
 
