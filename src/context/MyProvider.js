@@ -9,7 +9,6 @@ function Provider({ children }) {
   const [drinksRecipes, setDrinksRecipes] = useState('');
   const [recommendationMeals, setRecommendationMeals] = useState([]);
   const [recommendationDrinks, setRecommendationDrinks] = useState([]);
-  const [doneRecipes, setDoneRecipe] = useState([]);
 
   const context = {
     loading,
@@ -24,8 +23,6 @@ function Provider({ children }) {
     setRecommendationDrinks,
     recommendationMeals,
     setRecommendationMeals,
-    doneRecipes,
-    setDoneRecipe,
   };
 
   return (

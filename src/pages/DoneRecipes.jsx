@@ -1,16 +1,24 @@
-import React, { useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
-import MyContext from '../context/MyContext';
 
 function DoneRecipes() {
-  const { doneRecipes } = useContext(MyContext);
+  const [doneRecipes, setDoneRecipes] = useState([]);
+
+  useEffect(() => {
+    const getDone = () => {
+      const done = JSON.parse(localStorage.getItem('doneRecipes'));
+      setDoneRecipes(done);
+    };
+    getDone();
+  }, []);
+
   return (
     <>
       <Header title="Done Recipes" />
       <div>
-        <button type="button">All</button>
-        <button type="button">Meals</button>
-        <button type="button">Drinks</button>
+        <button type="button" data-testid="filter-by-all-btn">All</button>
+        <button type="button" data-testid="filter-by-meal-btn">Meals</button>
+        <button type="button" data-testid="filter-by-drink-btn">Drinks</button>
       </div>
 
       { doneRecipes.length > 0 && doneRecipes.map((el, index) => (
@@ -42,9 +50,16 @@ function DoneRecipes() {
             Share
           </button>
 
-          {el.strTag !== null
-          && <p data-testid={ `${index}-${el.strTag}-horizontal-tag` }>{el.strTag}</p>}
-
+          {el.tags.length > 0
+          && (
+            <div>
+              <p data-testid={ `${index}-${el.tags[0]}-horizontal-tag` }>
+                {el.tags[0]}
+              </p>
+              <p data-testid={ `${index}-${el.tags[1]}-horizontal-tag` }>
+                {el.tags[1]}
+              </p>
+            </div>)}
         </div>
       ))}
 
