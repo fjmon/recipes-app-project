@@ -142,6 +142,7 @@ function RecipeInProgress() {
               <button
                 type="button"
                 onClick={ () => setShareCopyBtn(false) }
+                data-testid="share-btn2"
               >
                 Compartilhar
               </button>
@@ -246,5 +247,4 @@ function RecipeInProgress() {
       {redirect && <Redirect to="/done-recipes" />}
     </div>
   );
-}
-export default RecipeInProgress;
+} export default RecipeInProgress;
