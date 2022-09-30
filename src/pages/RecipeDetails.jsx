@@ -155,6 +155,29 @@ function RecipeDetails() {
           )
         ))}
       </div>
+
+      <button
+        className="share-btn"
+        type="button"
+        data-testid="share-btn"
+        onClick={ handleClickShare }
+      >
+        Compartilhar
+
+      </button>
+      { shareCopyBtn && (
+        <p>
+          Link copied!
+        </p>
+      ) }
+      <img
+        data-testid="favorite-btn"
+        onClick={ handleFavoriteBtn }
+        src={ isFavorited ? iconFavorited : iconNotFavorited }
+        alt="Favoritar"
+        role="presentation"
+      />
+
       {btnDisappear === '' && (
         <button
           className="scroll-btn"
@@ -166,33 +189,7 @@ function RecipeDetails() {
 
         </button>
       )}
-      <button
-        type="button"
-        data-testid="share-btn"
-        onClick={ handleClickShare }
-      >
-        Compartilhar
 
-      </button>
-      { shareCopyBtn && (
-        <p>
-          Link copied!
-          <button
-            type="button"
-            onClick={ () => setShareCopyBtn(false) }
-          >
-            Compartilhar
-
-          </button>
-        </p>
-      ) }
-      <img
-        data-testid="favorite-btn"
-        onClick={ handleFavoriteBtn }
-        src={ isFavorited ? iconFavorited : iconNotFavorited }
-        alt="Favoritar"
-        role="presentation"
-      />
     </>
   );
 }
