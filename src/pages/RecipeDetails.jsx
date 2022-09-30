@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
+import copy from 'clipboard-copy';
 import MyContext from '../context/MyContext';
 import '../style/Carousel.css';
 
@@ -7,6 +8,8 @@ function RecipeDetails() {
   const { id } = useParams();
   const [recipeDetails, setRecipeDetails] = useState({});
   const { recommendationDrinks, setRecommendationDrinks } = useContext(MyContext);
+  const history = useHistory();
+  const [shareCopyBtn, setShareCopyBtn] = useState(false);
 
   useEffect(() => {
     const fetchApiDrinks = async () => {
@@ -14,7 +17,6 @@ function RecipeDetails() {
       try {
         const response = await fetch(url);
         const data = await response.json();
-        console.log(data.drinks);
         setRecommendationDrinks(data.drinks);
       } catch (error) {
         console.log('API endpoint not found');
@@ -60,6 +62,19 @@ function RecipeDetails() {
   if (doneRecipes !== null) {
     btnDisappear = doneRecipes.some((recipe) => recipe.id === id);
   }
+
+  let btnContinue = '';
+  const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  if (inProgressRecipes !== null) {
+    const { meals } = inProgressRecipes;
+    btnContinue = Object.keys(meals).some((recipe) => recipe === id);
+  }
+
+  const { location } = useHistory();
+  const handleClickShare = () => {
+    setShareCopyBtn(true);
+    copy(`http://localhost:3000${location.pathname}`);
+  };
 
   return (
     <>
@@ -118,11 +133,39 @@ function RecipeDetails() {
           className="scroll-btn"
           type="button"
           data-testid="start-recipe-btn"
+          onClick={ () => history.push(`/meals/${id}/in-progress`) }
         >
-          Start Recipe
+          {btnContinue ? 'Continue Recipe' : 'Start Recipe'}
 
         </button>
       )}
+      <button
+        type="button"
+        data-testid="share-btn"
+        onClick={ handleClickShare }
+      >
+        Compartilhar
+
+      </button>
+      { shareCopyBtn && (
+        <p>
+          Link copied!
+          <button
+            type="button"
+            onClick={ () => setShareCopyBtn(false) }
+          >
+            Compartilhar
+
+          </button>
+        </p>
+      ) }
+      <button
+        type="button"
+        data-testid="favorite-btn"
+      >
+        Favoritar
+
+      </button>
     </>
   );
 }

@@ -13,6 +13,7 @@ import Footer from './components/Footer';
 import Recipes from './pages/Recipes';
 import RecipeDetails from './pages/RecipeDetails';
 import DrinkDetails from './pages/DrinkDetails';
+import RecipeInProgress from './pages/RecipeInProgress';
 
 function App() {
   return (
@@ -55,8 +56,22 @@ function App() {
           <Route exact path="/favorite-recipes" component={ FavoriteRecipes } />
           <Route exact path="/meals/{id-da-receita}" />
           <Route exact path="/drinks/{id-da-receita}" />
-          <Route exact path="/meals/{id-da-receita}/in-progress" />
-          <Route exact path="/drinks/{id-da-receita}/in-progress" />
+          <Route
+            exact
+            path="/meals/:id/in-progress"
+            render={ (props) => (
+              <div>
+                <RecipeInProgress { ...props } key={ window.location.pathname } />
+              </div>) }
+          />
+          <Route
+            exact
+            path="/drinks/:id/in-progress"
+            render={ (props) => (
+              <div>
+                <RecipeInProgress key={ window.location.pathname } { ...props } />
+              </div>) }
+          />
         </Switch>
       </BrowserRouter>
     </Provider>
