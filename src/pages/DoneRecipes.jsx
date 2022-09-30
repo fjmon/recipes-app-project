@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import copy from 'clipboard-copy';
 import share from '../images/shareIcon.svg';
 import Header from '../components/Header';
 
 function DoneRecipes() {
   const [doneRecipes, setDoneRecipes] = useState([]);
+  const [shareCopyBtn, setShareCopyBtn] = useState(false);
 
   useEffect(() => {
     const getDone = () => {
@@ -12,6 +14,16 @@ function DoneRecipes() {
     };
     getDone();
   }, []);
+
+  const handleClickShare = (type, id) => {
+    if (type === 'meal') {
+      setShareCopyBtn(true);
+      copy(`http://localhost:3000/meals/${id}`);
+    } else {
+      setShareCopyBtn(true);
+      copy(`http://localhost:3000/drinks/${id}`);
+    }
+  };
 
   return (
     <>
@@ -72,7 +84,13 @@ function DoneRecipes() {
             alt={ el.name }
             data-testid={ `${index}-horizontal-share-btn` }
             role="presentation"
+            onClick={ () => handleClickShare(el.type, el.id) }
           />
+          { shareCopyBtn && (
+            <p>
+              Link copied!
+            </p>
+          ) }
         </div>
       ))}
 

@@ -134,13 +134,6 @@ function DrinkDetails() {
       { shareCopyBtn && (
         <p>
           Link copied!
-          <button
-            type="button"
-            onClick={ () => setShareCopyBtn(false) }
-          >
-            Compartilhar
-
-          </button>
         </p>
       ) }
       <button
