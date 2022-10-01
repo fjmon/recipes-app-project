@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import share from '../images/shareIcon.svg';
 import Header from '../components/Header';
@@ -6,6 +7,7 @@ import Header from '../components/Header';
 function DoneRecipes() {
   const [doneRecipes, setDoneRecipes] = useState([]);
   const [shareCopyBtn, setShareCopyBtn] = useState(false);
+  const history = useHistory();
 
   useEffect(() => {
     const getDone = () => {
@@ -25,13 +27,55 @@ function DoneRecipes() {
     }
   };
 
+  const filterByMeal = () => {
+    const mealFilter = doneRecipes.filter((el) => el.type === 'meal');
+    setDoneRecipes(mealFilter);
+  };
+  const filterByDrink = () => {
+    const drinkFilter = doneRecipes.filter((el) => el.type === 'drink');
+    setDoneRecipes(drinkFilter);
+  };
+  const allFavs = () => {
+    const allRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    setDoneRecipes(allRecipes);
+  };
+
+  const handleImageTitle = (type, id) => {
+    if (type === 'meal') {
+      history.push(`/meals/${id}`);
+    } else {
+      history.push(`/drinks/${id}`);
+    }
+  };
+
   return (
     <>
       <Header title="Done Recipes" />
       <div>
-        <button type="button" data-testid="filter-by-all-btn">All</button>
-        <button type="button" data-testid="filter-by-meal-btn">Meals</button>
-        <button type="button" data-testid="filter-by-drink-btn">Drinks</button>
+        <button
+          type="button"
+          data-testid="filter-by-all-btn"
+          onClick={ allFavs }
+        >
+          All
+
+        </button>
+        <button
+          type="button"
+          data-testid="filter-by-meal-btn"
+          onClick={ filterByMeal }
+        >
+          Meals
+
+        </button>
+        <button
+          type="button"
+          data-testid="filter-by-drink-btn"
+          onClick={ filterByDrink }
+        >
+          Drinks
+
+        </button>
       </div>
 
       { doneRecipes.length > 0 && doneRecipes.map((el, index) => (
@@ -40,10 +84,14 @@ function DoneRecipes() {
             data-testid={ `${index}-horizontal-image` }
             src={ el.image }
             alt={ el.name }
+            onClick={ () => handleImageTitle(el.type, el.id) }
+            role="presentation"
           />
 
           <h6
             data-testid={ `${index}-horizontal-name` }
+            onClick={ () => handleImageTitle(el.type, el.id) }
+            role="presentation"
           >
             {el.name }
           </h6>
