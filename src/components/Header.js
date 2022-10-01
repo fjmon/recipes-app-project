@@ -5,7 +5,7 @@ import logoDrink from '../images/drinkIcon.svg';
 import logoMeal from '../images/mealIcon.svg';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
-import SearchBar from './Searchbar';
+import SearchBar from './SearchBar';
 import '../style/Header.css';
 
 function Header({ title, search }) {
@@ -15,13 +15,13 @@ function Header({ title, search }) {
     if (statusSearchBar === true) {
       setStatusSearchBar(false);
     } else setStatusSearchBar(true);
-    console.log('clickou');
-    console.log(statusSearchBar);
+    // console.log('clickou');
+    // console.log(statusSearchBar);
   };
 
   return (
     <header data-testid="header-id">
-      <div id="top-header">
+      <div className="top-header">
         {search && (
           <div onClick={ clickSearch } role="presentation" id="search-icon-div">
             <img

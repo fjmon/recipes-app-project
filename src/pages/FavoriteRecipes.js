@@ -85,7 +85,7 @@ function FavoriteRecipes() {
         </button>
       </div>
 
-      {favorites.length > 0 && favorites.map((fav, index) => (
+      {favorites !== null && favorites.map((fav, index) => (
         <div key={ index }>
           <img
             src={ fav.image }
