@@ -3,6 +3,8 @@ import { useParams, useHistory } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import MyContext from '../context/MyContext';
 import '../style/Carousel.css';
+import iconFavorited from '../images/blackHeartIcon.svg';
+import iconNotFavorited from '../images/whiteHeartIcon.svg';
 
 function DrinkDetails() {
   const { id } = useParams();
@@ -10,6 +12,8 @@ function DrinkDetails() {
   const { recommendationMeals, setRecommendationMeals } = useContext(MyContext);
   const history = useHistory();
   const [shareCopyBtn, setShareCopyBtn] = useState(false);
+  const [storageItem, setStorageItem] = useState(() => JSON
+    .parse(localStorage.getItem('favoriteRecipes') || '[]'));
 
   useEffect(() => {
     const fetchApiMeals = async () => {
@@ -23,7 +27,7 @@ function DrinkDetails() {
       }
     };
     fetchApiMeals();
-  }, []); // eslint-disable-line
+  }, []);
 
   const CARDS_MAXIMUM = 6;
 
@@ -66,6 +70,29 @@ function DrinkDetails() {
   const handleClickShare = () => {
     setShareCopyBtn(true);
     copy(`http://localhost:3000${location.pathname}`);
+  };
+
+  const recipe = {
+    id: drinkDetails.idDrink,
+    type: 'drink',
+    nationality: '',
+    category: drinkDetails.strCategory,
+    alcoholicOrNot: drinkDetails.strAlcoholic,
+    name: drinkDetails.strDrink,
+    image: drinkDetails.strDrinkThumb };
+
+  const isFavorited = storageItem.filter((el) => el.id === recipe.id).length > 0;
+
+  const handleFavoriteBtn = () => {
+    if (!isFavorited) {
+      const newStorage = [...storageItem, recipe];
+      setStorageItem(newStorage);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(newStorage));
+    } else {
+      const newStorage = storageItem.filter((el) => el.id !== recipe.id);
+      setStorageItem(newStorage);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(newStorage));
+    }
   };
 
   return (
@@ -113,6 +140,29 @@ function DrinkDetails() {
           )
         ))}
       </div>
+
+      <button
+        className="share-btn"
+        type="button"
+        data-testid="share-btn"
+        onClick={ handleClickShare }
+      >
+        Compartilhar
+
+      </button>
+
+      { shareCopyBtn && (
+        <p>
+          Link copied!
+        </p>
+      ) }
+      <img
+        data-testid="favorite-btn"
+        onClick={ handleFavoriteBtn }
+        src={ isFavorited ? iconFavorited : iconNotFavorited }
+        alt="Favoritar"
+        role="presentation"
+      />
       {btnDisappear === '' && (
         <button
           className="scroll-btn"
@@ -123,26 +173,7 @@ function DrinkDetails() {
           {btnContinue ? 'Continue Recipe' : 'Start Recipe'}
         </button>
       )}
-      <button
-        type="button"
-        data-testid="share-btn"
-        onClick={ handleClickShare }
-      >
-        Compartilhar
 
-      </button>
-      { shareCopyBtn && (
-        <p>
-          Link copied!
-        </p>
-      ) }
-      <button
-        type="button"
-        data-testid="favorite-btn"
-      >
-        Favoritar
-
-      </button>
     </>
   );
 }

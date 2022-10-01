@@ -3,6 +3,8 @@ import { useParams, useHistory } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import MyContext from '../context/MyContext';
 import '../style/Carousel.css';
+import iconFavorited from '../images/blackHeartIcon.svg';
+import iconNotFavorited from '../images/whiteHeartIcon.svg';
 
 function RecipeDetails() {
   const { id } = useParams();
@@ -10,6 +12,8 @@ function RecipeDetails() {
   const { recommendationDrinks, setRecommendationDrinks } = useContext(MyContext);
   const history = useHistory();
   const [shareCopyBtn, setShareCopyBtn] = useState(false);
+  const [storageItem, setStorageItem] = useState(() => JSON
+    .parse(localStorage.getItem('favoriteRecipes') || '[]'));
 
   useEffect(() => {
     const fetchApiDrinks = async () => {
@@ -76,6 +80,29 @@ function RecipeDetails() {
     copy(`http://localhost:3000${location.pathname}`);
   };
 
+  const recipe = {
+    id: recipeDetails.idMeal,
+    type: 'meal',
+    nationality: recipeDetails.strArea,
+    category: recipeDetails.strCategory,
+    alcoholicOrNot: '',
+    name: recipeDetails.strMeal,
+    image: recipeDetails.strMealThumb };
+
+  const isFavorited = storageItem.filter((el) => el.id === recipe.id).length > 0;
+
+  const handleFavoriteBtn = () => {
+    if (!isFavorited) {
+      const newStorage = [...storageItem, recipe];
+      setStorageItem(newStorage);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(newStorage));
+    } else {
+      const newStorage = storageItem.filter((el) => el.id !== recipe.id);
+      setStorageItem(newStorage);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(newStorage));
+    }
+  };
+
   return (
     <>
       <img
@@ -128,18 +155,9 @@ function RecipeDetails() {
           )
         ))}
       </div>
-      {btnDisappear === '' && (
-        <button
-          className="scroll-btn"
-          type="button"
-          data-testid="start-recipe-btn"
-          onClick={ () => history.push(`/meals/${id}/in-progress`) }
-        >
-          {btnContinue ? 'Continue Recipe' : 'Start Recipe'}
 
-        </button>
-      )}
       <button
+        className="share-btn"
         type="button"
         data-testid="share-btn"
         onClick={ handleClickShare }
@@ -152,13 +170,26 @@ function RecipeDetails() {
           Link copied!
         </p>
       ) }
-      <button
-        type="button"
+      <img
         data-testid="favorite-btn"
-      >
-        Favoritar
+        onClick={ handleFavoriteBtn }
+        src={ isFavorited ? iconFavorited : iconNotFavorited }
+        alt="Favoritar"
+        role="presentation"
+      />
 
-      </button>
+      {btnDisappear === '' && (
+        <button
+          className="scroll-btn"
+          type="button"
+          data-testid="start-recipe-btn"
+          onClick={ () => history.push(`/meals/${id}/in-progress`) }
+        >
+          {btnContinue ? 'Continue Recipe' : 'Start Recipe'}
+
+        </button>
+      )}
+
     </>
   );
 }
