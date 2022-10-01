@@ -80,7 +80,7 @@ function DoneRecipes() {
         </button>
       </div>
 
-      { doneRecipes.length > 0 && doneRecipes.map((el, index) => (
+      { doneRecipes !== null && doneRecipes.map((el, index) => (
         <div key={ index }>
           <img
             data-testid={ `${index}-horizontal-image` }
@@ -119,7 +119,7 @@ function DoneRecipes() {
 
           <p data-testid={ `${index}-horizontal-done-date` }>{el.doneDate}</p>
 
-          {el.tags.length > 0
+          {el.tags !== null
           && (
             <div>
               <p data-testid={ `${index}-${el.tags[0]}-horizontal-tag` }>

@@ -27,7 +27,7 @@ function DrinkDetails() {
       }
     };
     fetchApiMeals();
-  }, []);
+  }, []); // eslint-disable-line
 
   const CARDS_MAXIMUM = 6;
 
