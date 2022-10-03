@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch, BrowserRouter } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Provider from './context/MyProvider';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -18,62 +18,60 @@ import RecipeInProgress from './pages/RecipeInProgress';
 function App() {
   return (
     <Provider>
-      <BrowserRouter>
-        <Switch>
-          <Route exact path="/" component={ Login } />
-          <Route
-            exact
-            path="/meals"
-            render={ (props) => (
-              <div>
-                <Meals />
-                <Recipes { ...props } key={ window.location.pathname } />
-                <Footer />
-              </div>) }
-          />
-          <Route exact path="/meals/:id" component={ RecipeDetails } />
-          <Route
-            exact
-            path="/drinks"
-            render={ (props) => (
-              <div>
-                <Drinks />
-                <Recipes { ...props } key={ window.location.pathname } />
-                <Footer />
-              </div>) }
-          />
-          <Route exact path="/drinks/:id" component={ DrinkDetails } />
-          <Route
-            exact
-            path="/profile"
-            render={ () => (
-              <div>
-                <Profile />
-                <Footer />
-              </div>) }
-          />
-          <Route exact path="/done-recipes" component={ DoneRecipes } />
-          <Route exact path="/favorite-recipes" component={ FavoriteRecipes } />
-          <Route exact path="/meals/{id-da-receita}" />
-          <Route exact path="/drinks/{id-da-receita}" />
-          <Route
-            exact
-            path="/meals/:id/in-progress"
-            render={ (props) => (
-              <div>
-                <RecipeInProgress { ...props } key={ window.location.pathname } />
-              </div>) }
-          />
-          <Route
-            exact
-            path="/drinks/:id/in-progress"
-            render={ (props) => (
-              <div>
-                <RecipeInProgress key={ window.location.pathname } { ...props } />
-              </div>) }
-          />
-        </Switch>
-      </BrowserRouter>
+      <Switch>
+        <Route exact path="/" component={ Login } />
+        <Route
+          exact
+          path="/meals"
+          render={ (props) => (
+            <div>
+              <Meals />
+              <Recipes { ...props } key={ window.location.pathname } />
+              <Footer />
+            </div>) }
+        />
+        <Route exact path="/meals/:id" component={ RecipeDetails } />
+        <Route
+          exact
+          path="/drinks"
+          render={ (props) => (
+            <div>
+              <Drinks />
+              <Recipes { ...props } key={ window.location.pathname } />
+              <Footer />
+            </div>) }
+        />
+        <Route exact path="/drinks/:id" component={ DrinkDetails } />
+        <Route
+          exact
+          path="/profile"
+          render={ () => (
+            <div>
+              <Profile />
+              <Footer />
+            </div>) }
+        />
+        <Route exact path="/done-recipes" component={ DoneRecipes } />
+        <Route exact path="/favorite-recipes" component={ FavoriteRecipes } />
+        <Route exact path="/meals/{id-da-receita}" />
+        <Route exact path="/drinks/{id-da-receita}" />
+        <Route
+          exact
+          path="/meals/:id/in-progress"
+          render={ (props) => (
+            <div>
+              <RecipeInProgress { ...props } key={ window.location.pathname } />
+            </div>) }
+        />
+        <Route
+          exact
+          path="/drinks/:id/in-progress"
+          render={ (props) => (
+            <div>
+              <RecipeInProgress key={ window.location.pathname } { ...props } />
+            </div>) }
+        />
+      </Switch>
     </Provider>
   );
 }
