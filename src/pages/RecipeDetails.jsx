@@ -124,13 +124,14 @@ function RecipeDetails() {
           </li>
         ))}
       </ol>
-      <p
-        data-testid="instructions"
-        className="instructions"
-      >
-        {recipeDetails.strInstructions}
+      <div className="instructions">
+        <p
+          data-testid="instructions"
+        >
+          {recipeDetails.strInstructions}
 
-      </p>
+        </p>
+      </div>
       { embedURL(recipeDetails.strYoutube)
         && <iframe
           src={ embedURL(recipeDetails.strYoutube) }
@@ -162,7 +163,6 @@ function RecipeDetails() {
           )
         ))}
       </div>
-
       <button
         className="share-btn btn btn-primary"
         type="button"
@@ -185,7 +185,6 @@ function RecipeDetails() {
         alt="Favoritar"
         role="presentation"
       />
-
       {btnDisappear === '' && (
         <button
           className="scroll-btn btn btn-success"

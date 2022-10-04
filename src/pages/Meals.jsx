@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import Header from '../components/Header';
 import MyContext from '../context/MyContext';
 
 function Meals() {

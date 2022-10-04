@@ -4,7 +4,7 @@ import copy from 'clipboard-copy';
 import { Redirect } from 'react-router-dom';
 import iconFavorited from '../images/blackHeartIcon.svg';
 import iconNotFavorited from '../images/whiteHeartIcon.svg';
-import '../style/RecipeInProgress.css';
+import '../style/App.css';
 
 function RecipeInProgress() {
   const [mealsRoute, setMealsRoute] = useState(false);
@@ -171,29 +171,32 @@ function RecipeInProgress() {
             { elem.strInstructions }
 
           </p>
-          {Object.keys(mealDetails.meals[0])
-            .filter((e) => e.includes('strIngredient'))
-            .map((e2, i) => mealDetails.meals[0][e2]
-          && (
-            <div key={ i }>
-              <label
-                data-testid={ `${i}-ingredient-step` }
-                htmlFor={ mealDetails.meals[0][e2] }
-              >
-                {mealDetails.meals[0][e2]}
-                <input
-                  type="checkbox"
-                  id={ mealDetails.meals[0][e2] }
-                  name={ elem.idMeal }
-                  onClick={ checkIngredients }
-                  checked={ restoreChecked(mealDetails.meals[0][e2], elem.idMeal) }
-                />
-              </label>
-            </div>))}
+          <div className="check-list">
+            {Object.keys(mealDetails.meals[0])
+              .filter((e) => e.includes('strIngredient'))
+              .map((e2, i) => mealDetails.meals[0][e2]
+            && (
+              <div key={ i }>
+                <label
+                  data-testid={ `${i}-ingredient-step` }
+                  htmlFor={ mealDetails.meals[0][e2] }
+                >
+                  {mealDetails.meals[0][e2]}
+                  <input
+                    type="checkbox"
+                    id={ mealDetails.meals[0][e2] }
+                    name={ elem.idMeal }
+                    onClick={ checkIngredients }
+                    checked={ restoreChecked(mealDetails.meals[0][e2], elem.idMeal) }
+                  />
+                </label>
+              </div>))}
+          </div>
         </div>))}
       {drinksRoute && drinkDetails.drinks.map((elem, index) => (
         <div key={ index }>
           <img
+            className="card-img-top"
             alt="meal-thumbnail"
             src={ elem.strDrinkThumb }
             width="200"
@@ -203,6 +206,7 @@ function RecipeInProgress() {
 
           <button
             type="button"
+            className="btn btn-primary"
             data-testid="share-btn"
             onClick={ handleClickShare }
           >

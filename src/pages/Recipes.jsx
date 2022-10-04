@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import RecipeCard from '../components/RecipeCard';
 import MyContext from '../context/MyContext';
-import '..';
 
 function Recipes() {
   const [mealsRoute, setMealsRoute] = useState(false);

@@ -116,13 +116,14 @@ function DrinkDetails() {
           </li>
         ))}
       </ol>
-      <p
-        data-testid="instructions"
-        className="instructions"
-      >
-        {drinkDetails.strInstructions}
+      <div className="instructions">
+        <p
+          data-testid="instructions"
+        >
+          {drinkDetails.strInstructions}
 
-      </p>
+        </p>
+      </div>
       <div className="scroll">
         {recommendationMeals.length > 0 && recommendationMeals.map((meal, i) => (
           i < CARDS_MAXIMUM && (
@@ -157,7 +158,6 @@ function DrinkDetails() {
         Compartilhar
 
       </button>
-
       { shareCopyBtn && (
         <p>
           Link copied!
