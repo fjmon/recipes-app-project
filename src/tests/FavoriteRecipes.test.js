@@ -1,6 +1,5 @@
 import { screen, act, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-// import FavoriteRecipes from '../pages/FavoriteRecipes';
 import renderWithRouter from './helpers/renderWithRouter';
 import MockFavoriteRecipes from './helpers/MockFavoriteRecipes';
 import App from '../App';
