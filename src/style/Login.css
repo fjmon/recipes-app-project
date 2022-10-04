@@ -8,8 +8,7 @@ body {
   display: flex;
   flex-direction: column;
   height: 50vh;
-  justify-content: flex-end;
-  margin-top: 5rem;
+  justify-content: center;
   width: 80vw;
 }
 
