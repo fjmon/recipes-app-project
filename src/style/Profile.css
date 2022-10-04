@@ -1,0 +1,8 @@
+.container-profile {
+  text-align: center;
+}
+
+.container-btn-profile {
+  display: flex;
+  justify-content: space-evenly
+}

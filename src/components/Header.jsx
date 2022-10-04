@@ -21,7 +21,7 @@ function Header({ title, search }) {
     <header data-testid="header-id">
       <div className="top-header">
         {search && (
-          <div onClick={ clickSearch } role="presentation" id="search-icon-div">
+          <div onClick={ clickSearch } role="presentation">
             <img
               src={ searchIcon }
               alt="icon search"
@@ -37,9 +37,18 @@ function Header({ title, search }) {
         </Link>
       </div>
       {
-        title === 'Meals' ? <img src={ logoMeal } alt="icon meals" id="icon" />
-          : <img src={ logoDrink } alt="icon drink" id="icon" />
+        title === 'Meals' ? <img
+          src={ logoMeal }
+          alt="icon meals"
+          className="icon-header"
+        />
+          : <img src={ logoDrink } alt="icon drink" className="icon-header" />
       }
+      {/* { title === 'Meals' && <img
+        src={ logoMeal }
+        alt="icon meals"
+        className="icon-header"
+      />} */}
       <h1 data-testid="page-title">{title}</h1>
       { statusSearchBar === true && <SearchBar title={ title } />}
     </header>

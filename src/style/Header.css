@@ -17,6 +17,10 @@ header {
   width: 100vw;
 }
 
+.icon-header{
+  width: 3rem;
+}
+
 .search-bar {
   align-items: center;
   display: flex;

@@ -19,18 +19,10 @@ main {
   height: 100vh;
 }
 
-h1 {
+h1, h2, h3, h4 {
   font-family: 'Epilogue';
   font-style: italic;
   font-weight: 600;
 }
 
-
-/* .meals > .logo {
-  animation: shake 1.5s infinite ease;
-  color: aliceblue;
-  font-family: Montserrat , sans-serif;
-  font-size: 3em;
-  font-weight: 900;
-} */
 
