@@ -8,10 +8,10 @@ function Footer() {
   return (
     <footer data-testid="footer" className="footer">
       <Link data-testid="drinks-bottom-btn" to="/drinks" src={ drinkIcon }>
-        <img src={ drinkIcon } alt="Drinks" width="50" />
+        <img src={ drinkIcon } alt="Drinks" width="40" />
       </Link>
       <Link data-testid="meals-bottom-btn" to="/meals" src={ mealIcon }>
-        <img src={ mealIcon } alt="Foods" width="50" />
+        <img src={ mealIcon } alt="Foods" width="40" />
       </Link>
     </footer>
   );

@@ -14,6 +14,7 @@ import Recipes from './pages/Recipes';
 import RecipeDetails from './pages/RecipeDetails';
 import DrinkDetails from './pages/DrinkDetails';
 import RecipeInProgress from './pages/RecipeInProgress';
+import Header from './components/Header';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           path="/meals"
           render={ (props) => (
             <div>
+              <Header title="Meals" search />
               <Meals />
               <Recipes { ...props } key={ window.location.pathname } />
               <Footer />
@@ -36,6 +38,7 @@ function App() {
           path="/drinks"
           render={ (props) => (
             <div>
+              <Header title="Drinks" search />
               <Drinks />
               <Recipes { ...props } key={ window.location.pathname } />
               <Footer />

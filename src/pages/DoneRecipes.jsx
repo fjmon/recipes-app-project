@@ -51,9 +51,10 @@ function DoneRecipes() {
   return (
     <>
       <Header title="Done Recipes" />
-      <div>
+      <div className="container-btn-all">
         <button
           type="button"
+          className="btn btn-primary"
           data-testid="filter-by-all-btn"
           onClick={ allFavs }
         >
@@ -62,6 +63,7 @@ function DoneRecipes() {
         </button>
         <button
           type="button"
+          className="btn btn-primary"
           data-testid="filter-by-meal-btn"
           onClick={ filterByMeal }
         >
@@ -70,6 +72,7 @@ function DoneRecipes() {
         </button>
         <button
           type="button"
+          className="btn btn-primary"
           data-testid="filter-by-drink-btn"
           onClick={ filterByDrink }
         >

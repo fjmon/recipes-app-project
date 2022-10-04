@@ -24,7 +24,6 @@ function RecipeCard({ name, image, index, id, meal = true }) {
         alt="meal-thumbnail"
         className="card-img-top"
         src={ image }
-        /* width="200" */
         data-testid={ `${index}-card-img` }
       />
       <div className="card-body">

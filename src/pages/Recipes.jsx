@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import RecipeCard from '../components/RecipeCard';
 import MyContext from '../context/MyContext';
+import '..';
 
 function Recipes() {
   const [mealsRoute, setMealsRoute] = useState(false);
@@ -75,43 +76,47 @@ function Recipes() {
   const maxRecipes = 12;
   const maxCategories = 5;
   return (
-    <div>
+    <div className="xablau">
       { mealsRoute
-      && (
-        <button
-          data-testid="All-category-filter"
-          onClick={ resetMealsFilter }
-          type="button"
-        >
-          All
+        && (
+          <button
+            data-testid="All-category-filter"
+            className="btn btn-success"
+            onClick={ resetMealsFilter }
+            type="button"
+          >
+            All
 
-        </button>)}
+          </button>)}
       { drinksRoute
-      && (
-        <button
-          data-testid="All-category-filter"
-          onClick={ resetDrinksFilter }
-          type="button"
-        >
-          All
-        </button>) }
-      { mealsRoute
-        && mealsCategories.meals.map((elem, index) => (
-          index < maxCategories
-            ? (
-              <button
-                key={ index }
-                type="button"
-                data-testid={ `${elem.strCategory}-category-filter` }
-                name={ elem.strCategory }
-                onClick={ filterMealsByCategory }
-              >
-                {elem.strCategory}
+        && (
+          <button
+            data-testid="All-category-filter"
+            className="btn btn-success"
+            onClick={ resetDrinksFilter }
+            type="button"
+          >
+            All
+          </button>) }
 
-              </button>
-            )
-            : null
-        ))}
+      { mealsRoute
+          && mealsCategories.meals.map((elem, index) => (
+            index < maxCategories
+              ? (
+                <button
+                  className="btn btn-success"
+                  key={ index }
+                  type="button"
+                  data-testid={ `${elem.strCategory}-category-filter` }
+                  name={ elem.strCategory }
+                  onClick={ filterMealsByCategory }
+                >
+                  {elem.strCategory}
+
+                </button>
+              )
+              : null
+          ))}
       { mealsRoute && inputSearchBar.length === 0
         && mealsToShow.meals.map((elem, index) => (
           index < maxRecipes
@@ -137,6 +142,7 @@ function Recipes() {
           index < maxCategories
             ? (
               <button
+                className="btn btn-success"
                 type="button"
                 key={ index }
                 data-testid={ `${elem.strCategory}-category-filter` }

@@ -1,8 +1,10 @@
+/* eslint-disable max-lines */
 import React, { useState, useEffect } from 'react';
 import copy from 'clipboard-copy';
 import { Redirect } from 'react-router-dom';
 import iconFavorited from '../images/blackHeartIcon.svg';
 import iconNotFavorited from '../images/whiteHeartIcon.svg';
+import '../style/RecipeInProgress.css';
 
 function RecipeInProgress() {
   const [mealsRoute, setMealsRoute] = useState(false);
@@ -118,47 +120,57 @@ function RecipeInProgress() {
     }
   };
   return (
-    <div>
-      Recipe in Progress
+    <div className="xablau">
+      <h1>Recipe in Progress</h1>
       {mealsRoute && mealDetails.meals.map((elem, index) => (
         <div key={ index }>
           <img
+            className="card-img-top"
             alt="meal-thumbnail"
             src={ elem.strMealThumb }
             width="200"
             data-testid="recipe-photo"
           />
-          <p data-testid="recipe-title">{ elem.strMeal }</p>
-          <button
-            type="button"
-            data-testid="share-btn"
-            onClick={ handleClickShare }
+          <h2 data-testid="recipe-title">{ elem.strMeal }</h2>
+          <div className="flex">
+            <button
+              type="button"
+              className="btn btn-primary"
+              data-testid="share-btn"
+              onClick={ handleClickShare }
+            >
+              Compartilhar
+            </button>
+            { shareCopyBtn && (
+              <p>
+                Link copied!
+                <button
+                  type="button"
+                  onClick={ () => setShareCopyBtn(false) }
+                  data-testid="share-btn2"
+                >
+                  Compartilhar
+                </button>
+              </p>) }
+            <button
+              data-testid="favorite-btn"
+              type="button"
+              onClick={ handleFavoriteBtn }
+              src={ favoriteBtn ? iconNotFavorited : iconFavorited }
+            >
+              {favoriteBtn ? (
+                <img src={ iconNotFavorited } alt="Favorite" width="50" />)
+                : (<img src={ iconFavorited } alt="Favorite" width="50" />)}
+            </button>
+          </div>
+          <h3 data-testid="recipe-category">{ elem.strCategory }</h3>
+          <p
+            data-testid="instructions"
+            className="instructions"
           >
-            Compartilhar
-          </button>
-          { shareCopyBtn && (
-            <p>
-              Link copied!
-              <button
-                type="button"
-                onClick={ () => setShareCopyBtn(false) }
-                data-testid="share-btn2"
-              >
-                Compartilhar
-              </button>
-            </p>) }
-          <button
-            data-testid="favorite-btn"
-            type="button"
-            onClick={ handleFavoriteBtn }
-            src={ favoriteBtn ? iconNotFavorited : iconFavorited }
-          >
-            {favoriteBtn ? (
-              <img src={ iconNotFavorited } alt="Favorite" width="50" />)
-              : (<img src={ iconFavorited } alt="Favorite" width="50" />)}
-          </button>
-          <p data-testid="recipe-category">{ elem.strCategory }</p>
-          <p data-testid="instructions">{ elem.strInstructions }</p>
+            { elem.strInstructions }
+
+          </p>
           {Object.keys(mealDetails.meals[0])
             .filter((e) => e.includes('strIngredient'))
             .map((e2, i) => mealDetails.meals[0][e2]
@@ -188,6 +200,7 @@ function RecipeInProgress() {
             data-testid="recipe-photo"
           />
           <p data-testid="recipe-title">{ elem.strDrink }</p>
+
           <button
             type="button"
             data-testid="share-btn"
@@ -238,6 +251,7 @@ function RecipeInProgress() {
         </div>))}
       <button
         data-testid="finish-recipe-btn"
+        className="btn btn-primary"
         type="button"
         disabled={ finishButtonState }
         onClick={ () => setRedirect(true) }
@@ -247,4 +261,6 @@ function RecipeInProgress() {
       {redirect && <Redirect to="/done-recipes" />}
     </div>
   );
-} export default RecipeInProgress;
+}
+
+export default RecipeInProgress;

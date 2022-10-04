@@ -61,9 +61,10 @@ function FavoriteRecipes() {
     <>
       <Header title="Favorite Recipes" />
 
-      <div>
+      <div className="container-btn-all">
         <button
           type="button"
+          className="btn btn-primary"
           data-testid="filter-by-all-btn"
           onClick={ allFavs }
         >
@@ -71,6 +72,7 @@ function FavoriteRecipes() {
         </button>
         <button
           type="button"
+          className="btn btn-primary"
           data-testid="filter-by-meal-btn"
           onClick={ filterByMeal }
         >
@@ -78,6 +80,7 @@ function FavoriteRecipes() {
         </button>
         <button
           type="button"
+          className="btn btn-primary"
           data-testid="filter-by-drink-btn"
           onClick={ filterByDrink }
         >

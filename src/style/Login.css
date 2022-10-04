@@ -9,6 +9,7 @@ body {
   flex-direction: column;
   height: 50vh;
   justify-content: flex-end;
+  margin-top: 5rem;
   width: 80vw;
 }
 

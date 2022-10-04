@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import Header from '../components/Header';
+
 import MyContext from '../context/MyContext';
 
 function Drinks() {
@@ -9,7 +9,6 @@ function Drinks() {
 
   return (
     <div>
-      <Header title="Drinks" search />
       {drinksRecipes.length > 0 && drinksRecipes.map((drink, i) => (
         i < CARDS_MAXIMUM && (
           <div key={ drink.idDrink } data-testid={ `${i}-recipe-card` }>

@@ -37,18 +37,13 @@ function Header({ title, search }) {
         </Link>
       </div>
       {
-        title === 'Meals' ? <img
-          src={ logoMeal }
-          alt="icon meals"
+        title === 'Drinks' ? <img
+          src={ logoDrink }
+          alt="icon drink"
           className="icon-header"
         />
-          : <img src={ logoDrink } alt="icon drink" className="icon-header" />
+          : <img src={ logoMeal } alt="icon meals" className="icon-header" />
       }
-      {/* { title === 'Meals' && <img
-        src={ logoMeal }
-        alt="icon meals"
-        className="icon-header"
-      />} */}
       <h1 data-testid="page-title">{title}</h1>
       { statusSearchBar === true && <SearchBar title={ title } />}
     </header>

@@ -2,60 +2,52 @@ import React, { useEffect, useState, useContext } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import MyContext from '../context/MyContext';
-import '../style/Carousel.css';
+import '../style/RecipeDetails.css';
 import iconFavorited from '../images/blackHeartIcon.svg';
 import iconNotFavorited from '../images/whiteHeartIcon.svg';
 
-function RecipeDetails() {
+function DrinkDetails() {
   const { id } = useParams();
-  const [recipeDetails, setRecipeDetails] = useState({});
-  const { recommendationDrinks, setRecommendationDrinks } = useContext(MyContext);
+  const [drinkDetails, setDrinkDetails] = useState({});
+  const { recommendationMeals, setRecommendationMeals } = useContext(MyContext);
   const history = useHistory();
   const [shareCopyBtn, setShareCopyBtn] = useState(false);
   const [storageItem, setStorageItem] = useState(() => JSON
     .parse(localStorage.getItem('favoriteRecipes') || '[]'));
 
   useEffect(() => {
-    const fetchApiDrinks = async () => {
-      const url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+    const fetchApiMeals = async () => {
+      const url = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
       try {
         const response = await fetch(url);
         const data = await response.json();
-        setRecommendationDrinks(data.drinks);
+        setRecommendationMeals(data.meals);
       } catch (error) {
         console.log('API endpoint not found');
       }
     };
-    fetchApiDrinks();
+    fetchApiMeals();
   }, []); // eslint-disable-line
 
   const CARDS_MAXIMUM = 6;
 
-  const embedURL = (url) => {
-    if (url) {
-      const URL = url;
-      const newURL = URL.replace('watch?v=', 'embed/');
-      return newURL;
-    }
-  };
-
   useEffect(() => {
-    const fetchMeal = async () => {
-      const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+    const fetchDrink = async () => {
+      const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
       const data = await response.json();
-      setRecipeDetails(data.meals[0]);
+      setDrinkDetails(data.drinks[0]);
     };
-    fetchMeal();
+    fetchDrink();
   }, [id]);
 
   const getIngredients = () => {
     const ingredients = [];
-    const maxIngredients = 20;
+    const maxIngredients = 15;
     for (let index = 0; index <= maxIngredients; index += 1) {
       const ingredient = `strIngredient${index}`;
       const measure = `strMeasure${index}`;
-      if (recipeDetails[ingredient] && recipeDetails[measure] !== null) {
-        ingredients.push(`${recipeDetails[ingredient]} (${recipeDetails[measure]}) `);
+      if (drinkDetails[ingredient] && drinkDetails[measure] !== null) {
+        ingredients.push(`${drinkDetails[ingredient]} (${drinkDetails[measure]}) `);
       }
     }
     return ingredients;
@@ -70,8 +62,8 @@ function RecipeDetails() {
   let btnContinue = '';
   const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
   if (inProgressRecipes !== null) {
-    const { meals } = inProgressRecipes;
-    btnContinue = Object.keys(meals).some((recipe) => recipe === id);
+    const { drinks } = inProgressRecipes;
+    btnContinue = Object.keys(drinks).some((recipe) => recipe === id);
   }
 
   const { location } = useHistory();
@@ -81,13 +73,13 @@ function RecipeDetails() {
   };
 
   const recipe = {
-    id: recipeDetails.idMeal,
-    type: 'meal',
-    nationality: recipeDetails.strArea,
-    category: recipeDetails.strCategory,
-    alcoholicOrNot: '',
-    name: recipeDetails.strMeal,
-    image: recipeDetails.strMealThumb };
+    id: drinkDetails.idDrink,
+    type: 'drink',
+    nationality: '',
+    category: drinkDetails.strCategory,
+    alcoholicOrNot: drinkDetails.strAlcoholic,
+    name: drinkDetails.strDrink,
+    image: drinkDetails.strDrinkThumb };
 
   const isFavorited = storageItem.filter((el) => el.id === recipe.id).length > 0;
 
@@ -106,12 +98,13 @@ function RecipeDetails() {
   return (
     <>
       <img
+        className="card-img-top"
         data-testid="recipe-photo"
-        src={ recipeDetails.strMealThumb }
-        alt={ recipeDetails.strMeal }
+        src={ drinkDetails.strDrinkThumb }
+        alt={ drinkDetails.strDrink }
       />
-      <h1 data-testid="recipe-title">{recipeDetails.strMeal}</h1>
-      <h3 data-testid="recipe-category">{recipeDetails.strCategory}</h3>
+      <h1 data-testid="recipe-title">{drinkDetails.strDrink}</h1>
+      <h3 data-testid="recipe-category">{drinkDetails.strAlcoholic}</h3>
       <ol>
         <h6>Ingredients:</h6>
         { getIngredients().map((item, index) => (
@@ -123,33 +116,32 @@ function RecipeDetails() {
           </li>
         ))}
       </ol>
-      <p data-testid="instructions">{recipeDetails.strInstructions}</p>
-      { embedURL(recipeDetails.strYoutube)
-        && <iframe
-          src={ embedURL(recipeDetails.strYoutube) }
-          title={ recipeDetails.strMeal }
-          allowFullScreen
-          data-testid="video"
-        />}
+      <p
+        data-testid="instructions"
+        className="instructions"
+      >
+        {drinkDetails.strInstructions}
+
+      </p>
       <div className="scroll">
-        {recommendationDrinks.length > 0 && recommendationDrinks.map((drink, i) => (
+        {recommendationMeals.length > 0 && recommendationMeals.map((meal, i) => (
           i < CARDS_MAXIMUM && (
             <div
               className="scroll-child"
-              key={ drink.idDrink }
+              key={ meal.idMeal }
               data-testid={ `${i}-recommendation-card` }
             >
               <p
                 className="scroll-p"
                 data-testid={ `${i}-recommendation-title` }
               >
-                { drink.strDrink }
+                { meal.strMeal }
 
               </p>
               <img
                 className="scroll-img"
-                src={ drink.strDrinkThumb }
-                alt={ drink.strDrink }
+                src={ meal.strMealThumb }
+                alt={ meal.strMeal }
               />
             </div>
           )
@@ -157,7 +149,7 @@ function RecipeDetails() {
       </div>
 
       <button
-        className="share-btn"
+        className="share-btn btn btn-primary"
         type="button"
         data-testid="share-btn"
         onClick={ handleClickShare }
@@ -165,6 +157,7 @@ function RecipeDetails() {
         Compartilhar
 
       </button>
+
       { shareCopyBtn && (
         <p>
           Link copied!
@@ -172,25 +165,25 @@ function RecipeDetails() {
       ) }
       <img
         data-testid="favorite-btn"
+        className="btn btn-danger"
         onClick={ handleFavoriteBtn }
         src={ isFavorited ? iconFavorited : iconNotFavorited }
         alt="Favoritar"
         role="presentation"
       />
-
       {btnDisappear === '' && (
         <button
-          className="scroll-btn"
+          className="scroll-btn btn btn-success"
           type="button"
           data-testid="start-recipe-btn"
-          onClick={ () => history.push(`/meals/${id}/in-progress`) }
+          onClick={ () => history.push(`/drinks/${id}/in-progress`) }
         >
           {btnContinue ? 'Continue Recipe' : 'Start Recipe'}
-
         </button>
       )}
 
     </>
   );
 }
-export default RecipeDetails;
+
+export default DrinkDetails;
