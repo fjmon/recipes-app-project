@@ -169,7 +169,6 @@ function RecipeInProgress() {
             className="instructions"
           >
             { elem.strInstructions }
-
           </p>
           <div className="check-list">
             {Object.keys(mealDetails.meals[0])
@@ -203,7 +202,6 @@ function RecipeInProgress() {
             data-testid="recipe-photo"
           />
           <p data-testid="recipe-title">{ elem.strDrink }</p>
-
           <button
             type="button"
             className="btn btn-primary"
