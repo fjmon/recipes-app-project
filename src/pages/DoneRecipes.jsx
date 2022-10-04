@@ -9,9 +9,11 @@ function DoneRecipes() {
   const [shareCopyBtn, setShareCopyBtn] = useState(false);
   const history = useHistory();
 
+  const local = JSON.parse(localStorage.getItem('doneRecipes'));
+
   useEffect(() => {
     const getDone = () => {
-      const done = JSON.parse(localStorage.getItem('doneRecipes'));
+      const done = local;
       setDoneRecipes(done);
     };
     getDone();
@@ -28,15 +30,15 @@ function DoneRecipes() {
   };
 
   const filterByMeal = () => {
-    const mealFilter = doneRecipes.filter((el) => el.type === 'meal');
+    const mealFilter = local.filter((el) => el.type === 'meal');
     setDoneRecipes(mealFilter);
   };
   const filterByDrink = () => {
-    const drinkFilter = doneRecipes.filter((el) => el.type === 'drink');
+    const drinkFilter = local.filter((el) => el.type === 'drink');
     setDoneRecipes(drinkFilter);
   };
   const allFavs = () => {
-    const allRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    const allRecipes = local;
     setDoneRecipes(allRecipes);
   };
 

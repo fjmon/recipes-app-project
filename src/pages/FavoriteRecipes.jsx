@@ -10,6 +10,8 @@ function FavoriteRecipes() {
   const [shareCopyBtn, setShareCopyBtn] = useState(false);
   const history = useHistory();
 
+  const local = JSON.parse(localStorage.getItem('favoriteRecipes'));
+
   useEffect(() => {
     const getFavorites = () => {
       const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
@@ -43,18 +45,17 @@ function FavoriteRecipes() {
   };
 
   const filterByMeal = () => {
-    const mealFilter = favorites.filter((el) => el.type === 'meal');
+    const mealFilter = local.filter((el) => el.type === 'meal');
     setFavorites(mealFilter);
   };
 
   const filterByDrink = () => {
-    const drinkFilter = favorites.filter((el) => el.type === 'drink');
+    const drinkFilter = local.filter((el) => el.type === 'drink');
     setFavorites(drinkFilter);
   };
 
   const allFavs = () => {
-    const allRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    setFavorites(allRecipes);
+    setFavorites(local);
   };
 
   return (
