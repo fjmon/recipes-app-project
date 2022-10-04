@@ -14,7 +14,7 @@ function FavoriteRecipes() {
 
   useEffect(() => {
     const getFavorites = () => {
-      const favoriteRecipes = local;
+      const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
       setFavorites(favoriteRecipes);
     };
     getFavorites();
