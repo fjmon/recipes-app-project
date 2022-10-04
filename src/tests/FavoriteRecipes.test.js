@@ -72,7 +72,7 @@ describe('Testes da página Favorite Recipes', () => {
     expect(history.location.pathname).toBe('/meals/52977');
   });
 
-  it('Testa se ao clicar no nome da receita é redirecionado para a página de detalhes', () => {
+  it('Testa se ao clicar no nome da receita é redirecionado para página de detalhes', () => {
     const { history } = renderWithRouter(<App />);
     localStorage.setItem('favoriteRecipes', JSON.stringify(MockFavoriteRecipes));
     act(() => history.push(favoriteRecipes));
