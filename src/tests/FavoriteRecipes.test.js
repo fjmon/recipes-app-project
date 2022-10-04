@@ -81,6 +81,24 @@ describe('Testes da página Favorite Recipes', () => {
     expect(history.location.pathname).toBe('/meals/52977');
   });
 
+  it('Testa se a imagem redireciona para a página da receita ao ser clicado', () => {
+    const { history } = renderWithRouter(<App />);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(MockFavoriteRecipes));
+    act(() => history.push(favoriteRecipes));
+    const drinkImg = screen.queryByAltText(/al/i);
+    userEvent.click(drinkImg);
+    expect(history.location.pathname).toBe('/drinks/17222');
+  });
+
+  it('Testa se ao clicar no nome da receita é redirecionado para a página de detalhes', () => {
+    const { history } = renderWithRouter(<App />);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(MockFavoriteRecipes));
+    act(() => history.push(favoriteRecipes));
+    const title = screen.getByTestId('1-horizontal-name');
+    userEvent.click(title);
+    expect(history.location.pathname).toBe('/drinks/17222');
+  });
+
   it('Testa se remove a receita dos favoritos', () => {
     const { history } = renderWithRouter(<App />);
     localStorage.setItem('favoriteRecipes', JSON.stringify(MockFavoriteRecipes));
