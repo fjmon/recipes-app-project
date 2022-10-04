@@ -53,6 +53,7 @@ function SearchBar() {
         <label htmlFor="ingrediente">
           <input
             type="radio"
+            className="form-check-input"
             data-testid="ingredient-search-radio"
             name="radioBtn"
             id="ingrediente"
@@ -64,6 +65,7 @@ function SearchBar() {
         <label htmlFor="nome">
           <input
             type="radio"
+            className="form-check-input"
             data-testid="name-search-radio"
             name="radioBtn"
             id="nome"
@@ -75,6 +77,7 @@ function SearchBar() {
         <label htmlFor="primeira-letra">
           <input
             type="radio"
+            className="form-check-input"
             data-testid="first-letter-search-radio"
             name="radioBtn"
             id="primeira-letra"
@@ -86,11 +89,13 @@ function SearchBar() {
       </div>
       <input
         type="text"
+        className="form-control"
         data-testid="search-input"
         onChange={ handleChangeSearchBar }
       />
       <button
         type="button"
+        className="btn btn-primary"
         data-testid="exec-search-btn"
         onClick={ handleClick }
       >

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
+import '../style/RecipeCard.css';
 
 function RecipeCard({ name, image, index, id, meal = true }) {
   const history = useHistory();
@@ -14,15 +15,22 @@ function RecipeCard({ name, image, index, id, meal = true }) {
   };
 
   return (
-    <button type="button" onClick={ redirectToDetails }>
+    <div
+      onClick={ redirectToDetails }
+      role="presentation"
+      className="card recipe-card"
+    >
       <img
         alt="meal-thumbnail"
+        className="card-img-top"
         src={ image }
-        width="200"
+        /* width="200" */
         data-testid={ `${index}-card-img` }
       />
-      <p data-testid={ `${index}-card-name` }>{name}</p>
-    </button>
+      <div className="card-body">
+        <h4 className="card-text" data-testid={ `${index}-card-name` }>{name}</h4>
+      </div>
+    </div>
   );
 }
 

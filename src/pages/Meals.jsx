@@ -8,7 +8,7 @@ function Meals() {
   const CARDS_MAXIMUM = 12;
 
   return (
-    <div>
+    <>
       <Header title="Meals" search />
       {mealsRecipes.length > 0 && mealsRecipes.map((meals, i) => (
         i < CARDS_MAXIMUM && (
@@ -22,7 +22,7 @@ function Meals() {
           </div>
         )
       ))}
-    </div>
+    </>
   );
 }
 

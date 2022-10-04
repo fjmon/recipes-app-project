@@ -17,8 +17,14 @@ main {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  padding: 1rem;
 }
+
+h1 {
+  font-family: 'Epilogue';
+  font-style: italic;
+  font-weight: 600;
+}
+
 
 /* .meals > .logo {
   animation: shake 1.5s infinite ease;

@@ -15,8 +15,6 @@ function Header({ title, search }) {
     if (statusSearchBar === true) {
       setStatusSearchBar(false);
     } else setStatusSearchBar(true);
-    // console.log('clickou');
-    // console.log(statusSearchBar);
   };
 
   return (

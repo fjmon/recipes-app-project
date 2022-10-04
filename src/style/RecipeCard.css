@@ -1,0 +1,17 @@
+main {
+  justify-content: normal;
+}
+
+.recipe-card {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin: 0.4rem;
+  width: 18rem;
+}
+
+.container-recipe-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

@@ -116,7 +116,11 @@ function Recipes() {
         && mealsToShow.meals.map((elem, index) => (
           index < maxRecipes
             ? (
-              <div data-testid={ `${index}-recipe-card` } key={ index }>
+              <div
+                data-testid={ `${index}-recipe-card` }
+                key={ index }
+                className="container-recipe-card"
+              >
                 <RecipeCard
                   index={ index }
                   name={ elem.strMeal }
@@ -148,7 +152,11 @@ function Recipes() {
         && drinksToShow.drinks.map((elem, index) => (
           index < maxRecipes
             ? (
-              <div data-testid={ `${index}-recipe-card` } key={ index }>
+              <div
+                data-testid={ `${index}-recipe-card` }
+                key={ index }
+                className="container-recipe-card"
+              >
                 <RecipeCard
                   index={ index }
                   name={ elem.strDrink }

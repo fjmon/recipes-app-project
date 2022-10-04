@@ -5,7 +5,7 @@ import Header from '../components/Header';
 function Profile() {
   const user = JSON.parse(localStorage.getItem('user')) || '';
   return (
-    <>
+    <section>
       <Header title="Profile" />
       <p data-testid="profile-email">{user.email}</p>
 
@@ -36,7 +36,7 @@ function Profile() {
           Logout
         </button>
       </Link>
-    </>
+    </section>
   );
 }
 

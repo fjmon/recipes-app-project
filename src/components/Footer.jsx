@@ -7,7 +7,6 @@ import '../style/Footer.css';
 function Footer() {
   return (
     <footer data-testid="footer" className="footer">
-      Footer
       <Link data-testid="drinks-bottom-btn" to="/drinks" src={ drinkIcon }>
         <img src={ drinkIcon } alt="Drinks" width="50" />
       </Link>
